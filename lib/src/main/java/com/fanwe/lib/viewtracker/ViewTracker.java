@@ -34,7 +34,7 @@ public interface ViewTracker
     void setCallback(Callback callback);
 
     /**
-     * 设置想要追踪目标的源view
+     * 设置源view
      *
      * @param source
      */
@@ -46,7 +46,7 @@ public interface ViewTracker
     void setTarget(View target);
 
     /**
-     * 设置要追踪位置
+     * 设置要追踪的位置
      */
     void setPosition(Position position);
 
