@@ -46,19 +46,19 @@ public interface ViewTracker
     void setTarget(View target);
 
     /**
-     * 设置跟随的位置
+     * 设置要追踪位置
      */
     void setPosition(Position position);
 
     /**
-     * 设置对齐后x轴方向的偏移量，大于0往右，小于0往左
+     * 设置追踪到后x轴方向的偏移量，大于0往右，小于0往左
      *
      * @param marginX
      */
     void setMarginX(int marginX);
 
     /**
-     * 设置对齐后y轴方向的偏移量，大于0往下，小于0往上
+     * 设置追踪到y轴方向的偏移量，大于0往下，小于0往上
      *
      * @param marginY
      */
