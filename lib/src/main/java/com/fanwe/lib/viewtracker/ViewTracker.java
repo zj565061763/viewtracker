@@ -20,7 +20,7 @@ import android.view.View;
 public interface ViewTracker
 {
     /**
-     * 设置是否调试模式，过滤日志tag:Poper
+     * 设置是否调试模式，过滤日志tag:ViewTracker
      *
      * @param debug
      */
