@@ -25,7 +25,7 @@ import java.lang.ref.WeakReference;
 /**
  * 可以让PopView显示在Target的某个位置
  */
-public abstract class FViewTracker implements ViewTracker
+public class FViewTracker implements ViewTracker
 {
     private ViewDrawListener mDrawListener;
 
@@ -38,8 +38,10 @@ public abstract class FViewTracker implements ViewTracker
 
     private final int[] mLocationTarget = {0, 0};
     private final int[] mLocationParent = {0, 0};
-    private int mSourceX;
-    private int mSourceY;
+    private int mX;
+    private int mY;
+
+    private Callback mCallback;
 
     private boolean mIsDebug;
 
@@ -52,52 +54,52 @@ public abstract class FViewTracker implements ViewTracker
     }
 
     @Override
-    public ViewTracker setDebug(boolean debug)
+    public void setDebug(boolean debug)
     {
         mIsDebug = debug;
-        return this;
     }
 
     @Override
-    public ViewTracker setSource(final View source)
+    public void setCallback(Callback callback)
+    {
+        mCallback = callback;
+    }
+
+    @Override
+    public void setSource(final View source)
     {
         final View old = getSource();
         if (old != source)
             mSource = source == null ? null : new WeakReference<>(source);
-        return this;
     }
 
     @Override
-    public ViewTracker setTarget(final View target)
+    public void setTarget(final View target)
     {
         final View old = getTarget();
         if (old != target)
             mTarget = target == null ? null : new WeakReference<>(target);
-        return this;
     }
 
     @Override
-    public ViewTracker setPosition(Position position)
+    public void setPosition(Position position)
     {
         if (position == null)
             throw new NullPointerException("position is null");
 
         mPosition = position;
-        return this;
     }
 
     @Override
-    public ViewTracker setMarginX(int marginX)
+    public void setMarginX(int marginX)
     {
         mMarginX = marginX;
-        return this;
     }
 
     @Override
-    public ViewTracker setMarginY(int marginY)
+    public void setMarginY(int marginY)
     {
         mMarginY = marginY;
-        return this;
     }
 
     @Override
@@ -113,17 +115,24 @@ public abstract class FViewTracker implements ViewTracker
     }
 
     @Override
-    public ViewTracker track(boolean track)
+    public boolean start()
     {
-        if (track)
-        {
+        if (track())
             getDrawListener().register();
-            updatePosition();
-        } else
-        {
-            getDrawListener().unregister();
-        }
-        return this;
+
+        return isTracking();
+    }
+
+    @Override
+    public boolean isTracking()
+    {
+        return getDrawListener().isRegister();
+    }
+
+    @Override
+    public void stop()
+    {
+        getDrawListener().unregister();
     }
 
     private ViewDrawListener getDrawListener()
@@ -143,35 +152,36 @@ public abstract class FViewTracker implements ViewTracker
                 @Override
                 protected void onDraw()
                 {
-                    updatePosition();
+                    track();
                 }
             };
         }
         return mDrawListener;
     }
 
-    /**
-     * 刷新追踪信息
-     */
-    public final void updatePosition()
+    @Override
+    public final boolean track()
     {
+        if (mCallback == null)
+            return false;
+
         final View source = getSource();
         if (source == null)
-            return;
+            return false;
 
         final View target = getTarget();
         if (target == null)
-            return;
+            return false;
 
         final ViewParent viewParent = source.getParent();
         if (viewParent == null)
-            return;
+            return false;
 
         ((View) viewParent).getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);
 
-        mSourceX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
-        mSourceY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
+        mX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
+        mY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
 
         switch (mPosition)
         {
@@ -248,7 +258,8 @@ public abstract class FViewTracker implements ViewTracker
                 break;
         }
 
-        onTrack(mSourceX, mSourceY, source);
+        mCallback.onTrack(mX, mY, source);
+        return true;
     }
 
     //---------- position start----------
@@ -259,17 +270,17 @@ public abstract class FViewTracker implements ViewTracker
 
     private void layoutTopCenter(View source, View target)
     {
-        mSourceX += (target.getWidth() - source.getWidth()) / 2;
+        mX += (target.getWidth() - source.getWidth()) / 2;
     }
 
     private void layoutTopRight(View source, View target)
     {
-        mSourceX += (target.getWidth() - source.getWidth());
+        mX += target.getWidth() - source.getWidth();
     }
 
     private void layoutLeftCenter(View source, View target)
     {
-        mSourceY += (target.getHeight() - source.getHeight()) / 2;
+        mY += (target.getHeight() - source.getHeight()) / 2;
     }
 
     private void layoutCenter(View source, View target)
@@ -286,7 +297,7 @@ public abstract class FViewTracker implements ViewTracker
 
     private void layoutBottomLeft(View source, View target)
     {
-        mSourceY += target.getHeight() - source.getHeight();
+        mY += target.getHeight() - source.getHeight();
     }
 
     private void layoutBottomCenter(View source, View target)
@@ -304,76 +315,74 @@ public abstract class FViewTracker implements ViewTracker
     private void layoutTopOutsideLeft(View source, View target)
     {
         layoutTopLeft(source, target);
-        mSourceY -= source.getHeight();
+        mY -= source.getHeight();
     }
 
     private void layoutTopOutsideCenter(View source, View target)
     {
         layoutTopCenter(source, target);
-        mSourceY -= source.getHeight();
+        mY -= source.getHeight();
     }
 
     private void layoutTopOutsideRight(View source, View target)
     {
         layoutTopRight(source, target);
-        mSourceY -= source.getHeight();
+        mY -= source.getHeight();
     }
 
     private void layoutBottomOutsideLeft(View source, View target)
     {
         layoutBottomLeft(source, target);
-        mSourceY += source.getHeight();
+        mY += source.getHeight();
     }
 
     private void layoutBottomOutsideCenter(View source, View target)
     {
         layoutBottomCenter(source, target);
-        mSourceY += source.getHeight();
+        mY += source.getHeight();
     }
 
     private void layoutBottomOutsideRight(View source, View target)
     {
         layoutBottomRight(source, target);
-        mSourceY += source.getHeight();
+        mY += source.getHeight();
     }
 
     private void layoutLeftOutsideTop(View source, View target)
     {
         layoutTopLeft(source, target);
-        mSourceX -= source.getWidth();
+        mX -= source.getWidth();
     }
 
     private void layoutLeftOutsideCenter(View source, View target)
     {
         layoutLeftCenter(source, target);
-        mSourceX -= source.getWidth();
+        mX -= source.getWidth();
     }
 
     private void layoutLeftOutsideBottom(View source, View target)
     {
         layoutBottomLeft(source, target);
-        mSourceX -= source.getWidth();
+        mX -= source.getWidth();
     }
 
     private void layoutRightOutsideTop(View source, View target)
     {
         layoutTopRight(source, target);
-        mSourceX += source.getWidth();
+        mX += source.getWidth();
     }
 
     private void layoutRightOutsideCenter(View source, View target)
     {
         layoutRightCenter(source, target);
-        mSourceX += source.getWidth();
+        mX += source.getWidth();
     }
 
     private void layoutRightOutsideBottom(View source, View target)
     {
         layoutBottomRight(source, target);
-        mSourceX += source.getWidth();
+        mX += source.getWidth();
     }
 
     //---------- position end----------
-
-    protected abstract void onTrack(int x, int y, View source);
 }

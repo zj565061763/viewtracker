@@ -71,6 +71,11 @@ public abstract class ViewDrawListener
         }
     }
 
+    public final boolean isRegister()
+    {
+        return mIsRegister;
+    }
+
     public final boolean register()
     {
         final View view = getView();

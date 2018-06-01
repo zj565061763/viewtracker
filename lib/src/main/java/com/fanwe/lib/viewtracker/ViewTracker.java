@@ -23,45 +23,46 @@ public interface ViewTracker
      * 设置是否调试模式，过滤日志tag:Poper
      *
      * @param debug
-     * @return
      */
-    ViewTracker setDebug(boolean debug);
+    void setDebug(boolean debug);
+
+    /**
+     * 设置回调
+     *
+     * @param callback
+     */
+    void setCallback(Callback callback);
 
     /**
      * 设置想要追踪目标的源view
      *
      * @param source
-     * @return
      */
-    ViewTracker setSource(View source);
+    void setSource(View source);
 
     /**
      * 设置目标view
-     *
-     * @param target
      */
-    ViewTracker setTarget(View target);
+    void setTarget(View target);
 
     /**
      * 设置跟随的位置
-     *
-     * @param position
      */
-    ViewTracker setPosition(Position position);
+    void setPosition(Position position);
 
     /**
      * 设置对齐后x轴方向的偏移量，大于0往右，小于0往左
      *
      * @param marginX
      */
-    ViewTracker setMarginX(int marginX);
+    void setMarginX(int marginX);
 
     /**
      * 设置对齐后y轴方向的偏移量，大于0往下，小于0往上
      *
      * @param marginY
      */
-    ViewTracker setMarginY(int marginY);
+    void setMarginY(int marginY);
 
     /**
      * 返回想要追踪目标的源view
@@ -78,12 +79,30 @@ public interface ViewTracker
     View getTarget();
 
     /**
-     * 开始或者停止追踪
+     * 开始追踪
      *
-     * @param track
+     * @return true-正在追踪中
+     */
+    boolean start();
+
+    /**
+     * 停止追踪
+     */
+    void stop();
+
+    /**
+     * 是否正在追踪中
+     *
      * @return
      */
-    ViewTracker track(boolean track);
+    boolean isTracking();
+
+    /**
+     * 触发追踪
+     *
+     * @return
+     */
+    boolean track();
 
     enum Position
     {
@@ -177,5 +196,17 @@ public interface ViewTracker
          * 在target的右边外侧靠底部对齐
          */
         RightOutsideBottom,
+    }
+
+    interface Callback
+    {
+        /**
+         * source按照指定的位置追踪到target后回调
+         *
+         * @param x      追踪到target后，source相对于父布局的x
+         * @param y      追踪到target后，source相对于父布局的y
+         * @param source
+         */
+        void onTrack(int x, int y, View source);
     }
 }
