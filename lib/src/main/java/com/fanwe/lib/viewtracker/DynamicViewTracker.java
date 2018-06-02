@@ -15,6 +15,9 @@
  */
 package com.fanwe.lib.viewtracker;
 
+/**
+ * 动态实时追踪view位置接口
+ */
 public interface DynamicViewTracker extends ViewTracker
 {
     /**

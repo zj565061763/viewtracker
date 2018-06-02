@@ -23,7 +23,7 @@ import com.fanwe.lib.viewtracker.ViewTracker;
 import com.fanwe.lib.viewtracker.utils.ViewDrawListener;
 
 /**
- * 可以动态实时的追踪view
+ * 动态实时追踪view位置
  */
 public class FDynamicViewTracker extends FViewTracker implements DynamicViewTracker
 {
