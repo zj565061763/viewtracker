@@ -17,6 +17,9 @@ package com.fanwe.lib.viewtracker;
 
 import android.view.View;
 
+/**
+ * view的位置追踪接口
+ */
 public interface ViewTracker
 {
     /**
@@ -25,6 +28,13 @@ public interface ViewTracker
      * @param debug
      */
     void setDebug(boolean debug);
+
+    /**
+     * 是否调试模式
+     *
+     * @return
+     */
+    boolean isDebug();
 
     /**
      * 设置回调
@@ -77,25 +87,6 @@ public interface ViewTracker
      * @return
      */
     View getTarget();
-
-    /**
-     * 开始追踪
-     *
-     * @return true-正在追踪中
-     */
-    boolean start();
-
-    /**
-     * 停止追踪
-     */
-    void stop();
-
-    /**
-     * 是否正在追踪中
-     *
-     * @return
-     */
-    boolean isTracking();
 
     /**
      * 触发追踪

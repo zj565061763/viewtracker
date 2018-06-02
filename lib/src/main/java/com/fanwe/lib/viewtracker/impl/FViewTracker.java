@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.viewtracker;
+package com.fanwe.lib.viewtracker.impl;
 
-import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewParent;
+
+import com.fanwe.lib.viewtracker.ViewTracker;
 
 import java.lang.ref.WeakReference;
 
 /**
- * 可以让PopView显示在Target的某个位置
+ * view的位置追踪
  */
 public class FViewTracker implements ViewTracker
 {
-    private ViewDrawListener mDrawListener;
-
     private WeakReference<View> mSource;
     private WeakReference<View> mTarget;
 
@@ -45,18 +43,16 @@ public class FViewTracker implements ViewTracker
 
     private boolean mIsDebug;
 
-    public FViewTracker(Activity activity)
-    {
-        if (activity == null)
-            throw new NullPointerException("activity is null");
-
-        getDrawListener().setView(activity.findViewById(android.R.id.content));
-    }
-
     @Override
     public void setDebug(boolean debug)
     {
         mIsDebug = debug;
+    }
+
+    @Override
+    public boolean isDebug()
+    {
+        return mIsDebug;
     }
 
     @Override
@@ -112,51 +108,6 @@ public class FViewTracker implements ViewTracker
     public View getTarget()
     {
         return mTarget == null ? null : mTarget.get();
-    }
-
-    @Override
-    public boolean start()
-    {
-        if (track())
-            getDrawListener().register();
-
-        return isTracking();
-    }
-
-    @Override
-    public boolean isTracking()
-    {
-        return getDrawListener().isRegister();
-    }
-
-    @Override
-    public void stop()
-    {
-        getDrawListener().unregister();
-    }
-
-    private ViewDrawListener getDrawListener()
-    {
-        if (mDrawListener == null)
-        {
-            mDrawListener = new ViewDrawListener()
-            {
-                @Override
-                protected void onRegisterChanged(boolean isRegister)
-                {
-                    super.onRegisterChanged(isRegister);
-                    if (mIsDebug)
-                        Log.i(ViewTracker.class.getSimpleName(), FViewTracker.this + " DrawListener isRegister:" + isRegister);
-                }
-
-                @Override
-                protected void onDraw()
-                {
-                    track();
-                }
-            };
-        }
-        return mDrawListener;
     }
 
     @Override
@@ -270,7 +221,7 @@ public class FViewTracker implements ViewTracker
 
     private void layoutTopCenter(View source, View target)
     {
-        mX += (target.getWidth() - source.getWidth()) / 2;
+        mX += (target.getWidth() - source.getWidth()) >> 1;
     }
 
     private void layoutTopRight(View source, View target)
@@ -280,7 +231,7 @@ public class FViewTracker implements ViewTracker
 
     private void layoutLeftCenter(View source, View target)
     {
-        mY += (target.getHeight() - source.getHeight()) / 2;
+        mY += (target.getHeight() - source.getHeight()) >> 1;
     }
 
     private void layoutCenter(View source, View target)
