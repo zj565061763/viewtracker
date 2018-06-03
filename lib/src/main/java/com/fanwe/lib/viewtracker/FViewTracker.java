@@ -256,7 +256,7 @@ public class FViewTracker implements ViewTracker
                 break;
         }
 
-        mCallback.onTrack(mX, mY, source);
+        mCallback.onTrack(mX, mY, source, target);
         return true;
     }
 

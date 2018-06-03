@@ -34,10 +34,11 @@ public class MainActivity extends AppCompatActivity
              *
              * @param x      追踪到target后，source相对于父布局的x
              * @param y      追踪到target后，source相对于父布局的y
-             * @param source
+             * @param source 源view
+             * @param target 目标view
              */
             @Override
-            public void onTrack(int x, int y, View source)
+            public void onTrack(int x, int y, View source, View target)
             {
                 Log.i(TAG, x + "," + y);
             }

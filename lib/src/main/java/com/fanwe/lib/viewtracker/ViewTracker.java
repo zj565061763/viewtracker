@@ -236,8 +236,9 @@ public interface ViewTracker extends Updater.Update
          *
          * @param x      追踪到target后，source相对于父布局的x
          * @param y      追踪到target后，source相对于父布局的y
-         * @param source
+         * @param source 源view
+         * @param target 目标view
          */
-        void onTrack(int x, int y, View source);
+        void onTrack(int x, int y, View source, View target);
     }
 }
