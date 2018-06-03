@@ -156,14 +156,16 @@ public class FViewTracker implements ViewTracker
         if (target == null)
             return false;
 
-        final ViewParent viewParent = source.getParent();
-        if (viewParent == null)
+        final ViewParent parent = source.getParent();
+        if (parent == null)
             return false;
 
-        if (!mCallback.canUpdate(source, target))
+        final View sourceParent = (View) parent;
+
+        if (!mCallback.canUpdate(source, sourceParent, target))
             return false;
 
-        ((View) viewParent).getLocationOnScreen(mLocationParent);
+        sourceParent.getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);
 
         mX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
@@ -244,7 +246,7 @@ public class FViewTracker implements ViewTracker
                 break;
         }
 
-        mCallback.onUpdate(mX, mY, source, target);
+        mCallback.onUpdate(mX, mY, source, sourceParent, target);
         return true;
     }
 

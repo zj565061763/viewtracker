@@ -32,26 +32,28 @@ public class MainActivity extends AppCompatActivity
             /**
              * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
              *
-             * @param source 源view
-             * @param target 目标view
+             * @param source       源view
+             * @param sourceParent 源view的父view
+             * @param target       目标view
              * @return true-可以更新，false-不要更新
              */
             @Override
-            public boolean canUpdate(View source, View target)
+            public boolean canUpdate(View source, View sourceParent, View target)
             {
-                return super.canUpdate(source, target);
+                return super.canUpdate(source, sourceParent, target);
             }
 
             /**
              * source按照指定的位置追踪到target后回调
              *
-             * @param x      追踪到target后，source相对于父布局的x
-             * @param y      追踪到target后，source相对于父布局的y
-             * @param source 源view
-             * @param target 目标view
+             * @param x            追踪到target后，source相对于父布局的x
+             * @param y            追踪到target后，source相对于父布局的y
+             * @param source       源view
+             * @param sourceParent 源view的父view
+             * @param target       目标view
              */
             @Override
-            public void onUpdate(int x, int y, View source, View target)
+            public void onUpdate(int x, int y, View source, View sourceParent, View target)
             {
                 Log.i(TAG, x + "," + y);
             }
