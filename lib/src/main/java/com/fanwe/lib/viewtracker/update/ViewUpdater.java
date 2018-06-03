@@ -128,5 +128,4 @@ public class ViewUpdater implements Updater
     protected void onStateChanged(boolean started)
     {
     }
-
 }

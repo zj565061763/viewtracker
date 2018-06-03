@@ -134,6 +134,9 @@ public class FViewTracker implements ViewTracker
     @Override
     public boolean start()
     {
+        if (mUpdater == null)
+            throw new NullPointerException(Updater.class.getName() + " instance must be provided before this, see the setUpdater(Updater) method");
+
         if (update())
             return mUpdater.start();
         return false;
