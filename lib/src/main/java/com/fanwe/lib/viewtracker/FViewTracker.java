@@ -41,21 +41,6 @@ public class FViewTracker implements ViewTracker
 
     private Callback mCallback;
 
-    private boolean mIsDebug;
-
-    @Override
-    public ViewTracker setDebug(boolean debug)
-    {
-        mIsDebug = debug;
-        return this;
-    }
-
-    @Override
-    public boolean isDebug()
-    {
-        return mIsDebug;
-    }
-
     @Override
     public ViewTracker setCallback(Callback callback)
     {

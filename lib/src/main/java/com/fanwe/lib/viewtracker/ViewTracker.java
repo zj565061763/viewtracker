@@ -25,21 +25,6 @@ import com.fanwe.lib.viewtracker.update.Updater;
 public interface ViewTracker extends Updater.Update
 {
     /**
-     * 设置是否调试模式，过滤日志tag:ViewTracker
-     *
-     * @param debug
-     * @return
-     */
-    ViewTracker setDebug(boolean debug);
-
-    /**
-     * 是否调试模式
-     *
-     * @return
-     */
-    boolean isDebug();
-
-    /**
      * 设置回调
      *
      * @param callback
