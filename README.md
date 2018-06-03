@@ -310,7 +310,6 @@ public interface ViewTracker extends Updater.Updatable
         public abstract void onUpdate(int x, int y, View source, View sourceParent, View target);
     }
 }
-
 ```
 
 # Updater接口
