@@ -44,9 +44,10 @@ public class FViewTracker implements ViewTracker
     private boolean mIsDebug;
 
     @Override
-    public void setDebug(boolean debug)
+    public ViewTracker setDebug(boolean debug)
     {
         mIsDebug = debug;
+        return this;
     }
 
     @Override
@@ -56,46 +57,52 @@ public class FViewTracker implements ViewTracker
     }
 
     @Override
-    public void setCallback(Callback callback)
+    public ViewTracker setCallback(Callback callback)
     {
         mCallback = callback;
+        return this;
     }
 
     @Override
-    public void setSource(final View source)
+    public ViewTracker setSource(final View source)
     {
         final View old = getSource();
         if (old != source)
             mSource = source == null ? null : new WeakReference<>(source);
+        return this;
     }
 
     @Override
-    public void setTarget(final View target)
+    public ViewTracker setTarget(final View target)
     {
         final View old = getTarget();
         if (old != target)
             mTarget = target == null ? null : new WeakReference<>(target);
+        return this;
     }
 
     @Override
-    public void setPosition(Position position)
+    public ViewTracker setPosition(Position position)
     {
         if (position == null)
             throw new NullPointerException("position is null");
 
         mPosition = position;
+        return this;
     }
 
     @Override
-    public void setMarginX(int marginX)
+    public ViewTracker setMarginX(int marginX)
     {
         mMarginX = marginX;
+        return this;
     }
 
     @Override
-    public void setMarginY(int marginY)
+    public ViewTracker setMarginY(int marginY)
     {
         mMarginY = marginY;
+        return this;
     }
 
     @Override

@@ -26,8 +26,9 @@ public interface ViewTracker
      * 设置是否调试模式，过滤日志tag:ViewTracker
      *
      * @param debug
+     * @return
      */
-    void setDebug(boolean debug);
+    ViewTracker setDebug(boolean debug);
 
     /**
      * 是否调试模式
@@ -40,39 +41,49 @@ public interface ViewTracker
      * 设置回调
      *
      * @param callback
+     * @return
      */
-    void setCallback(Callback callback);
+    ViewTracker setCallback(Callback callback);
 
     /**
      * 设置源view
      *
      * @param source
+     * @return
      */
-    void setSource(View source);
+    ViewTracker setSource(View source);
 
     /**
      * 设置目标view
+     *
+     * @param target
+     * @return
      */
-    void setTarget(View target);
+    ViewTracker setTarget(View target);
 
     /**
      * 设置要追踪的位置
+     *
+     * @param position
+     * @return
      */
-    void setPosition(Position position);
+    ViewTracker setPosition(Position position);
 
     /**
-     * 设置追踪到后x轴方向的偏移量，大于0往右，小于0往左
+     * 设置追踪到指定位置后，x轴方向的偏移量，大于0往右，小于0往左
      *
      * @param marginX
+     * @return
      */
-    void setMarginX(int marginX);
+    ViewTracker setMarginX(int marginX);
 
     /**
-     * 设置追踪到y轴方向的偏移量，大于0往下，小于0往上
+     * 设置追踪到指定位置后，y轴方向的偏移量，大于0往下，小于0往上
      *
      * @param marginY
+     * @return
      */
-    void setMarginY(int marginY);
+    ViewTracker setMarginY(int marginY);
 
     /**
      * 返回想要追踪目标的源view
