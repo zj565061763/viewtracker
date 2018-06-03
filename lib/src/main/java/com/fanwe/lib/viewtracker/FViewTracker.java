@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.viewtracker.impl;
+package com.fanwe.lib.viewtracker;
 
 import android.view.View;
 import android.view.ViewParent;
 
-import com.fanwe.lib.viewtracker.ViewTracker;
+import com.fanwe.lib.viewtracker.update.Updater;
 
 import java.lang.ref.WeakReference;
 
@@ -117,8 +117,28 @@ public class FViewTracker implements ViewTracker
         return mTarget == null ? null : mTarget.get();
     }
 
+    private Updater mUpdater;
+
     @Override
-    public final boolean track()
+    public ViewTracker setUpdater(Updater updater)
+    {
+        if (mUpdater != updater)
+        {
+            mUpdater = updater;
+            if (updater != null)
+                updater.setUpdate(this);
+        }
+        return this;
+    }
+
+    @Override
+    public Updater getUpdater()
+    {
+        return mUpdater;
+    }
+
+    @Override
+    public final boolean update()
     {
         if (mCallback == null)
             return false;

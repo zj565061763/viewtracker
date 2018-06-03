@@ -17,10 +17,12 @@ package com.fanwe.lib.viewtracker;
 
 import android.view.View;
 
+import com.fanwe.lib.viewtracker.update.Updater;
+
 /**
  * view的位置追踪接口
  */
-public interface ViewTracker
+public interface ViewTracker extends Updater.Update
 {
     /**
      * 设置是否调试模式，过滤日志tag:ViewTracker
@@ -100,11 +102,26 @@ public interface ViewTracker
     View getTarget();
 
     /**
-     * 触发追踪
+     * 设置一个动态更新对象
+     *
+     * @param updater
+     * @return
+     */
+    ViewTracker setUpdater(Updater updater);
+
+    /**
+     * 返回设置的动态更新对象
      *
      * @return
      */
-    boolean track();
+    Updater getUpdater();
+
+    /**
+     * 触发一次追踪信息更新
+     *
+     * @return true-此次更新成功
+     */
+    boolean update();
 
     enum Position
     {
