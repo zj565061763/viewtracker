@@ -2,21 +2,22 @@
 让某个源view追踪某个目标view，追踪到指定的位置后，回调源view相对于其父布局的x和y
 
 # Gradle
-`implementation 'com.fanwe.android:viewtracker:1.0.0-beta2'`
+`implementation 'com.fanwe.android:viewtracker:1.0.0-rc1'`
 
 # ViewTracker接口
 ```java
 /**
  * view的位置追踪接口
  */
-public interface ViewTracker
+public interface ViewTracker extends Updater.Update
 {
     /**
      * 设置是否调试模式，过滤日志tag:ViewTracker
      *
      * @param debug
+     * @return
      */
-    void setDebug(boolean debug);
+    ViewTracker setDebug(boolean debug);
 
     /**
      * 是否调试模式
@@ -29,39 +30,49 @@ public interface ViewTracker
      * 设置回调
      *
      * @param callback
+     * @return
      */
-    void setCallback(Callback callback);
+    ViewTracker setCallback(Callback callback);
 
     /**
      * 设置源view
      *
      * @param source
+     * @return
      */
-    void setSource(View source);
+    ViewTracker setSource(View source);
 
     /**
      * 设置目标view
+     *
+     * @param target
+     * @return
      */
-    void setTarget(View target);
+    ViewTracker setTarget(View target);
 
     /**
      * 设置要追踪的位置
+     *
+     * @param position
+     * @return
      */
-    void setPosition(Position position);
+    ViewTracker setPosition(Position position);
 
     /**
-     * 设置追踪到后x轴方向的偏移量，大于0往右，小于0往左
+     * 设置追踪到指定位置后，x轴方向的偏移量，大于0往右，小于0往左
      *
      * @param marginX
+     * @return
      */
-    void setMarginX(int marginX);
+    ViewTracker setMarginX(int marginX);
 
     /**
-     * 设置追踪到y轴方向的偏移量，大于0往下，小于0往上
+     * 设置追踪到指定位置后，y轴方向的偏移量，大于0往下，小于0往上
      *
      * @param marginY
+     * @return
      */
-    void setMarginY(int marginY);
+    ViewTracker setMarginY(int marginY);
 
     /**
      * 返回想要追踪目标的源view
@@ -78,11 +89,38 @@ public interface ViewTracker
     View getTarget();
 
     /**
-     * 触发追踪
+     * 设置实时更新对象，可以实时更新追踪信息
+     *
+     * @param updater
+     * @return
+     */
+    ViewTracker setUpdater(Updater updater);
+
+    /**
+     * 开始实时更新追踪信息，调用此方法前必须先设置一个实时更新对象{@link #setUpdater(Updater)}
+     *
+     * @return true-成功开始
+     */
+    boolean start();
+
+    /**
+     * 停止实时更新追踪信息
+     */
+    void stop();
+
+    /**
+     * 是否已经开始实时更新
      *
      * @return
      */
-    boolean track();
+    boolean isStarted();
+
+    /**
+     * 触发一次追踪信息更新
+     *
+     * @return true-此次更新成功
+     */
+    boolean update();
 
     enum Position
     {
@@ -192,30 +230,47 @@ public interface ViewTracker
 }
 ```
 
-# DynamicViewTracker接口
+# Updater接口
 ```java
 /**
- * 实时实时追踪view位置接口
+ * 实时更新接口
  */
-public interface DynamicViewTracker extends ViewTracker
+public interface Updater
 {
     /**
-     * 开始追踪
+     * 设置要实时更新的对象
      *
-     * @return true-正在追踪中
+     * @param update
+     */
+    void setUpdate(Update update);
+
+    /**
+     * 开始实时更新
+     *
+     * @return true-成功开始
      */
     boolean start();
 
     /**
-     * 停止追踪
+     * 停止实时更新
      */
     void stop();
 
     /**
-     * 是否正在追踪中
+     * 是否已经开始实时更新
      *
      * @return
      */
-    boolean isTracking();
+    boolean isStarted();
+
+    interface Update
+    {
+        /**
+         * 触发更新
+         *
+         * @return true-更新成功
+         */
+        boolean update();
+    }
 }
 ```
