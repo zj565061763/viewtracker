@@ -27,6 +27,19 @@ public class MainActivity extends AppCompatActivity
         mViewTracker.setCallback(new ViewTracker.Callback()
         {
             /**
+             * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
+             *
+             * @param source 源view
+             * @param target 目标view
+             * @return true-可以更新，false-不要更新
+             */
+            @Override
+            public boolean canUpdate(View source, View target)
+            {
+                return super.canUpdate(source, target);
+            }
+
+            /**
              * source按照指定的位置追踪到target后回调
              *
              * @param x      追踪到target后，source相对于父布局的x
@@ -76,7 +89,7 @@ public class MainActivity extends AppCompatActivity
 /**
  * view的位置追踪接口
  */
-public interface ViewTracker extends Updater.Update
+public interface ViewTracker extends Updater.Updatable
 {
     /**
      * 设置回调
@@ -306,9 +319,9 @@ public interface Updater
     /**
      * 设置要实时更新的对象
      *
-     * @param update
+     * @param updatable
      */
-    void setUpdate(Update update);
+    void setUpdatable(Updatable updatable);
 
     /**
      * 开始实时更新
@@ -329,7 +342,7 @@ public interface Updater
      */
     boolean isStarted();
 
-    interface Update
+    interface Updatable
     {
         /**
          * 触发更新
