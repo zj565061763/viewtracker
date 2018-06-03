@@ -102,7 +102,7 @@ public interface ViewTracker extends Updater.Update
     View getTarget();
 
     /**
-     * 设置一个动态更新对象
+     * 设置实时更新对象，可以实时更新追踪信息
      *
      * @param updater
      * @return
@@ -110,11 +110,23 @@ public interface ViewTracker extends Updater.Update
     ViewTracker setUpdater(Updater updater);
 
     /**
-     * 返回设置的动态更新对象
+     * 开始实时更新追踪信息，调用此方法前必须先设置一个实时更新对象{@link #setUpdater(Updater)}
+     *
+     * @return true-成功开始
+     */
+    boolean start();
+
+    /**
+     * 停止实时更新追踪信息
+     */
+    void stop();
+
+    /**
+     * 是否已经开始实时更新
      *
      * @return
      */
-    Updater getUpdater();
+    boolean isStarted();
 
     /**
      * 触发一次追踪信息更新

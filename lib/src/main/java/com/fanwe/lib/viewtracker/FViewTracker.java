@@ -132,9 +132,26 @@ public class FViewTracker implements ViewTracker
     }
 
     @Override
-    public Updater getUpdater()
+    public boolean start()
     {
-        return mUpdater;
+        if (update())
+            return mUpdater.start();
+        return false;
+    }
+
+    @Override
+    public void stop()
+    {
+        if (mUpdater != null)
+            mUpdater.stop();
+    }
+
+    @Override
+    public boolean isStarted()
+    {
+        if (mUpdater != null)
+            return mUpdater.isStarted();
+        return false;
     }
 
     @Override

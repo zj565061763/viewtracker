@@ -1,31 +1,31 @@
 package com.fanwe.lib.viewtracker.update;
 
 /**
- * 动态更新接口
+ * 实时更新接口
  */
 public interface Updater
 {
     /**
-     * 设置要动态更新的对象
+     * 设置要实时更新的对象
      *
      * @param update
      */
     void setUpdate(Update update);
 
     /**
-     * 开始动态更新
+     * 开始实时更新
      *
      * @return true-成功开始
      */
     boolean start();
 
     /**
-     * 停止动态更新
+     * 停止实时更新
      */
     void stop();
 
     /**
-     * 是否已经开始动态更新
+     * 是否已经开始实时更新
      *
      * @return
      */

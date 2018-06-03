@@ -21,7 +21,7 @@ import android.view.ViewTreeObserver;
 import java.lang.ref.WeakReference;
 
 /**
- * View动态刷新
+ * View实时刷新
  */
 public class ViewUpdater implements Updater
 {

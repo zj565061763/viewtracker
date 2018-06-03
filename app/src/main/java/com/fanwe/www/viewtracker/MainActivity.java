@@ -57,11 +57,17 @@ public class MainActivity extends AppCompatActivity
                  */
                 .setPosition(ViewTracker.Position.TopLeft)
                 /**
-                 * 设置动态更新对象，可以实时更新追踪信息
+                 * 设置实时更新对象，可以实时更新追踪信息
                  */
                 .setUpdater(new ActivityUpdater(this));
 
+        /**
+         * 触发一次追踪信息更新
+         */
         mViewTracker.update();
-        mViewTracker.getUpdater().start();
+        /**
+         * 开始实时更新追踪信息，调用此方法前必须先设置一个实时更新对象
+         */
+        mViewTracker.start();
     }
 }
