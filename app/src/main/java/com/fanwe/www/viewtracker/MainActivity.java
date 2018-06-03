@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.fanwe.lib.viewtracker.FViewTracker;
 import com.fanwe.lib.viewtracker.ViewTracker;
+import com.fanwe.lib.viewtracker.ViewTracker.Position;
 import com.fanwe.lib.viewtracker.update.ActivityUpdater;
 
 public class MainActivity extends AppCompatActivity
@@ -44,10 +45,10 @@ public class MainActivity extends AppCompatActivity
             }
 
             /**
-             * source按照指定的位置追踪到target后回调
+             * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
              *
-             * @param x            追踪到target后，source相对于父布局的x
-             * @param y            追踪到target后，source相对于父布局的y
+             * @param x            source相对于父布局需要的x值
+             * @param y            source相对于父布局需要的y值
              * @param source       源view
              * @param sourceParent 源view的父view
              * @param target       目标view
