@@ -22,7 +22,7 @@ import com.fanwe.lib.viewtracker.update.Updater;
 /**
  * view的位置追踪接口
  */
-public interface ViewTracker extends Updater.Update
+public interface ViewTracker extends Updater.Updatable
 {
     /**
      * 设置回调

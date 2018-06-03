@@ -23,9 +23,9 @@ public interface Updater
     /**
      * 设置要实时更新的对象
      *
-     * @param update
+     * @param updatable
      */
-    void setUpdate(Update update);
+    void setUpdatable(Updatable updatable);
 
     /**
      * 开始实时更新
@@ -46,7 +46,7 @@ public interface Updater
      */
     boolean isStarted();
 
-    interface Update
+    interface Updatable
     {
         /**
          * 触发更新

@@ -28,12 +28,12 @@ public class ViewUpdater implements Updater
     private WeakReference<View> mView;
     private boolean mIsStarted;
 
-    private Update mUpdate;
+    private Updatable mUpdatable;
 
     @Override
-    public void setUpdate(Update update)
+    public void setUpdatable(Updatable updatable)
     {
-        mUpdate = update;
+        mUpdatable = updatable;
     }
 
     @Override
@@ -119,8 +119,8 @@ public class ViewUpdater implements Updater
         @Override
         public boolean onPreDraw()
         {
-            if (mUpdate != null)
-                mUpdate.update();
+            if (mUpdatable != null)
+                mUpdatable.update();
             return true;
         }
     };

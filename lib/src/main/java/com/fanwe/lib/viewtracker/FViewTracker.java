@@ -111,7 +111,7 @@ public class FViewTracker implements ViewTracker
         {
             mUpdater = updater;
             if (updater != null)
-                updater.setUpdate(this);
+                updater.setUpdatable(this);
         }
         return this;
     }
