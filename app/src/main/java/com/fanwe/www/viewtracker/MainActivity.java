@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
              * @param target 目标view
              */
             @Override
-            public void onTrack(int x, int y, View source, View target)
+            public void onUpdate(int x, int y, View source, View target)
             {
                 Log.i(TAG, x + "," + y);
             }

@@ -214,8 +214,20 @@ public interface ViewTracker extends Updater.Update
         RightOutsideBottom,
     }
 
-    interface Callback
+    abstract class Callback
     {
+        /**
+         * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
+         *
+         * @param source 源view
+         * @param target 目标view
+         * @return true-可以更新，false-不要更新
+         */
+        public boolean canUpdate(View source, View target)
+        {
+            return true;
+        }
+
         /**
          * source按照指定的位置追踪到target后回调
          *
@@ -224,6 +236,6 @@ public interface ViewTracker extends Updater.Update
          * @param source 源view
          * @param target 目标view
          */
-        void onTrack(int x, int y, View source, View target);
+        public abstract void onUpdate(int x, int y, View source, View target);
     }
 }

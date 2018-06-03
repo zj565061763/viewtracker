@@ -2,7 +2,7 @@
 让某个源view追踪某个目标view，追踪到指定的位置后，回调源view相对于其父布局的x和y
 
 # Gradle
-`implementation 'com.fanwe.android:viewtracker:1.0.0-rc3'`
+`implementation 'com.fanwe.android:viewtracker:1.0.0-rc4'`
 
 # 简单demo
 ```java
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
              * @param target 目标view
              */
             @Override
-            public void onTrack(int x, int y, View source, View target)
+            public void onUpdate(int x, int y, View source, View target)
             {
                 Log.i(TAG, x + "," + y);
             }
@@ -78,21 +78,6 @@ public class MainActivity extends AppCompatActivity
  */
 public interface ViewTracker extends Updater.Update
 {
-    /**
-     * 设置是否调试模式，过滤日志tag:ViewTracker
-     *
-     * @param debug
-     * @return
-     */
-    ViewTracker setDebug(boolean debug);
-
-    /**
-     * 是否调试模式
-     *
-     * @return
-     */
-    boolean isDebug();
-
     /**
      * 设置回调
      *
@@ -283,8 +268,20 @@ public interface ViewTracker extends Updater.Update
         RightOutsideBottom,
     }
 
-    interface Callback
+    abstract class Callback
     {
+        /**
+         * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
+         *
+         * @param source 源view
+         * @param target 目标view
+         * @return true-可以更新，false-不要更新
+         */
+        public boolean canUpdate(View source, View target)
+        {
+            return true;
+        }
+
         /**
          * source按照指定的位置追踪到target后回调
          *
@@ -293,9 +290,10 @@ public interface ViewTracker extends Updater.Update
          * @param source 源view
          * @param target 目标view
          */
-        void onTrack(int x, int y, View source, View target);
+        public abstract void onUpdate(int x, int y, View source, View target);
     }
 }
+
 ```
 
 # Updater接口
