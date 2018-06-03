@@ -16,7 +16,8 @@
         android:id="@+id/btn_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="200dp"
         android:text="target"
         android:textAllCaps="false" />
 
