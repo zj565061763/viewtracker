@@ -40,6 +40,7 @@ public class FViewTracker implements ViewTracker
     private int mY;
 
     private Callback mCallback;
+    private boolean mIsStarted;
 
     @Override
     public ViewTracker setCallback(Callback callback)
@@ -132,9 +133,12 @@ public class FViewTracker implements ViewTracker
         if (mUpdater == null)
             throw new NullPointerException(Updater.class.getName() + " instance must be provided before this, see the setUpdater(Updater) method");
 
+        boolean result = false;
         if (update())
-            return mUpdater.start();
-        return false;
+            result = mUpdater.start();
+
+        updateStarted();
+        return result;
     }
 
     @Override
@@ -142,6 +146,8 @@ public class FViewTracker implements ViewTracker
     {
         if (mUpdater != null)
             mUpdater.stop();
+
+        updateStarted();
     }
 
     @Override
@@ -150,6 +156,18 @@ public class FViewTracker implements ViewTracker
         if (mUpdater != null)
             return mUpdater.isStarted();
         return false;
+    }
+
+    private void updateStarted()
+    {
+        final boolean started = isStarted();
+        if (mIsStarted != started)
+        {
+            mIsStarted = started;
+
+            if (mCallback != null)
+                mCallback.onStateChanged(started);
+        }
     }
 
     @Override

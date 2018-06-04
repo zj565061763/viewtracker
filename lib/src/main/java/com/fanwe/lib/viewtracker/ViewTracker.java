@@ -237,6 +237,15 @@ public interface ViewTracker extends Updater.Updatable
         }
 
         /**
+         * 是否已经开始实时更新回调
+         *
+         * @param isStarted
+         */
+        public void onStateChanged(boolean isStarted)
+        {
+        }
+
+        /**
          * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
          *
          * @param source       源view
