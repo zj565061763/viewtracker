@@ -23,7 +23,7 @@ public abstract class BaseViewUpdater extends BaseUpdater
 {
     private WeakReference<View> mView;
 
-    public final void setView(View view)
+    public final Updater setView(View view)
     {
         final View old = getView();
         if (old != view)
@@ -40,6 +40,7 @@ public abstract class BaseViewUpdater extends BaseUpdater
                     throw new RuntimeException("start failure when view changed");
             }
         }
+        return this;
     }
 
     public final View getView()
