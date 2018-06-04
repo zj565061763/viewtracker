@@ -87,7 +87,7 @@ public interface ViewTracker extends Updater.Updatable
     View getTarget();
 
     /**
-     * 设置实时更新对象，可以实时更新追踪信息
+     * 设置实时更新对象，可以实时更新追踪信息，设置后不能修改
      *
      * @param updater
      * @return
