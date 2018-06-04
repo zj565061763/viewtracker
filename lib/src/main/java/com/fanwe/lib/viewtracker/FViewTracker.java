@@ -53,7 +53,12 @@ public class FViewTracker implements ViewTracker
     {
         final View old = getSource();
         if (old != source)
+        {
             mSource = source == null ? null : new WeakReference<>(source);
+
+            if (mCallback != null)
+                mCallback.onSourceChanged(source, old);
+        }
         return this;
     }
 
@@ -62,7 +67,12 @@ public class FViewTracker implements ViewTracker
     {
         final View old = getTarget();
         if (old != target)
+        {
             mTarget = target == null ? null : new WeakReference<>(target);
+
+            if (mCallback != null)
+                mCallback.onTargetChanged(target, old);
+        }
         return this;
     }
 
@@ -146,19 +156,31 @@ public class FViewTracker implements ViewTracker
     public final boolean update()
     {
         if (mCallback == null)
+        {
+            stop();
             return false;
+        }
 
         final View source = getSource();
         if (source == null)
+        {
+            stop();
             return false;
+        }
 
         final View target = getTarget();
         if (target == null)
+        {
+            stop();
             return false;
+        }
 
         final ViewParent parent = source.getParent();
         if (parent == null)
+        {
+            stop();
             return false;
+        }
 
         final View sourceParent = (View) parent;
 

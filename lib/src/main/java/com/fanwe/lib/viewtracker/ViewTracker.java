@@ -49,7 +49,7 @@ public interface ViewTracker extends Updater.Updatable
     ViewTracker setTarget(View target);
 
     /**
-     * 设置要追踪的位置
+     * 设置要追踪的位置，默认左上角对齐
      *
      * @param position
      * @return
@@ -216,6 +216,26 @@ public interface ViewTracker extends Updater.Updatable
 
     abstract class Callback
     {
+        /**
+         * 源view变化回调
+         *
+         * @param newSource 新的源view，可能为null
+         * @param oldSource 旧的源view，可能为null
+         */
+        public void onSourceChanged(View newSource, View oldSource)
+        {
+        }
+
+        /**
+         * 目标view变化回调
+         *
+         * @param newTarget 新的目标view，可能为null
+         * @param oldTarget 旧的目标view，可能为null
+         */
+        public void onTargetChanged(View newTarget, View oldTarget)
+        {
+        }
+
         /**
          * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
          *
