@@ -57,6 +57,9 @@ public class FViewTracker implements ViewTracker
         {
             mSource = source == null ? null : new WeakReference<>(source);
 
+            if (source == null)
+                stop();
+
             if (mCallback != null)
                 mCallback.onSourceChanged(source, old);
         }
@@ -70,6 +73,9 @@ public class FViewTracker implements ViewTracker
         if (old != target)
         {
             mTarget = target == null ? null : new WeakReference<>(target);
+
+            if (target == null)
+                stop();
 
             if (mCallback != null)
                 mCallback.onTargetChanged(target, old);
