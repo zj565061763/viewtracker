@@ -18,8 +18,6 @@ package com.fanwe.lib.viewtracker;
 import android.view.View;
 import android.view.ViewParent;
 
-import com.fanwe.lib.viewtracker.update.Updater;
-
 import java.lang.ref.WeakReference;
 
 /**
@@ -39,7 +37,6 @@ public class FViewTracker implements ViewTracker
     private int mX;
     private int mY;
 
-    private boolean mIsStarted;
     private Callback mCallback;
 
     @Override
@@ -57,9 +54,6 @@ public class FViewTracker implements ViewTracker
         {
             mSource = source == null ? null : new WeakReference<>(source);
 
-            if (source == null)
-                stop();
-
             if (mCallback != null)
                 mCallback.onSourceChanged(source, old);
         }
@@ -73,9 +67,6 @@ public class FViewTracker implements ViewTracker
         if (old != target)
         {
             mTarget = target == null ? null : new WeakReference<>(target);
-
-            if (target == null)
-                stop();
 
             if (mCallback != null)
                 mCallback.onTargetChanged(target, old);
@@ -119,90 +110,19 @@ public class FViewTracker implements ViewTracker
         return mTarget == null ? null : mTarget.get();
     }
 
-    private Updater mUpdater;
-
-    @Override
-    public ViewTracker setUpdater(Updater updater)
-    {
-        if (mUpdater != null)
-            throw new UnsupportedOperationException("Updater has been provided can not modify");
-
-        if (updater != null)
-        {
-            mUpdater = updater;
-            updater.setUpdatable(this);
-
-            updateStarted();
-        }
-
-        return this;
-    }
-
-    @Override
-    public boolean start()
-    {
-        if (mUpdater == null)
-            throw new NullPointerException(Updater.class.getName() + " instance must be provided before this, see the setUpdater(Updater) method");
-
-        boolean result = false;
-        if (update())
-            result = mUpdater.start();
-
-        updateStarted();
-        return result;
-    }
-
-    @Override
-    public void stop()
-    {
-        if (mUpdater != null)
-            mUpdater.stop();
-
-        updateStarted();
-    }
-
-    @Override
-    public boolean isStarted()
-    {
-        if (mUpdater != null)
-            return mUpdater.isStarted();
-        return false;
-    }
-
-    private void updateStarted()
-    {
-        final boolean started = isStarted();
-        if (mIsStarted != started)
-        {
-            mIsStarted = started;
-
-            if (mCallback != null)
-                mCallback.onStateChanged(started);
-        }
-    }
-
     @Override
     public final boolean update()
     {
         if (mCallback == null)
-        {
-            stop();
             return false;
-        }
-
-        final View source = getSource();
-        if (source == null)
-        {
-            stop();
-            return false;
-        }
 
         final View target = getTarget();
         if (target == null)
-        {
-            stop();
             return false;
-        }
+
+        final View source = getSource();
+        if (source == null)
+            return false;
 
         final ViewParent parent = source.getParent();
         if (parent == null)

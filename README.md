@@ -1,8 +1,8 @@
 # About
-让某个源view追踪某个目标view，追踪到指定的位置后，回调源view相对于其父布局的x和y
+让某个源view追踪某个目标view，追踪到指定的位置后，回调源view在x和y方向相对于父布局需要是什么值才可以到指定的位置
 
 # Gradle
-`implementation 'com.fanwe.android:viewtracker:1.0.0-rc6'`
+`implementation 'com.fanwe.android:viewtracker:1.0.0'`
 
 # 简单demo
 ```java
@@ -10,64 +10,58 @@ public class MainActivity extends AppCompatActivity
 {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    /**
-     * 创建对象
-     */
-    private final ViewTracker mViewTracker = new FViewTracker();
+    private ViewTracker mViewTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /**
-         * 设置回调对象
-         */
-        mViewTracker.setCallback(new ViewTracker.Callback()
+        findViewById(R.id.btn_source).setOnClickListener(new View.OnClickListener()
         {
-            /**
-             * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
-             *
-             * @param x            source相对于父布局需要的x值
-             * @param y            source相对于父布局需要的y值
-             * @param source       源view
-             * @param sourceParent 源view的父view
-             * @param target       目标view
-             */
             @Override
-            public void onUpdate(int x, int y, View source, View sourceParent, View target)
+            public void onClick(View v)
             {
-                Log.i(TAG, x + "," + y);
+                // 触发一次追踪信息更新
+                getViewTracker().update();
             }
         });
+    }
 
-        mViewTracker
-                /**
-                 * 设置源view
-                 */
-                .setSource(findViewById(R.id.btn_source))
-                /**
-                 * 设置目标view
-                 */
-                .setTarget(findViewById(R.id.btn_target))
-                /**
-                 * 设置要追踪的位置
-                 */
-                .setPosition(ViewTracker.Position.TopLeft)
-                /**
-                 * 设置实时更新对象，可以实时更新追踪信息
-                 */
-                .setUpdater(new ActivityUpdater(this));
+    public ViewTracker getViewTracker()
+    {
+        if (mViewTracker == null)
+        {
+            mViewTracker = new FViewTracker();
 
-        /**
-         * 触发一次追踪信息更新
-         */
-        mViewTracker.update();
-        /**
-         * 开始实时更新追踪信息，调用此方法前必须先设置一个实时更新对象
-         */
-        mViewTracker.start();
+            // 设置回调对象
+            mViewTracker.setCallback(new ViewTracker.Callback()
+            {
+                /**
+                 * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
+                 *
+                 * @param x            source相对于父布局需要的x值
+                 * @param y            source相对于父布局需要的y值
+                 * @param source       源view
+                 * @param sourceParent 源view的父view
+                 * @param target       目标view
+                 */
+                @Override
+                public void onUpdate(int x, int y, View source, View sourceParent, View target)
+                {
+                    Log.i(TAG, x + "," + y);
+                }
+            });
+
+            mViewTracker
+                    // 设置源view
+                    .setSource(findViewById(R.id.btn_source))
+                    // 设置目标view
+                    .setTarget(findViewById(R.id.btn_target))
+                    // 设置要追踪的位置，默认左上角对齐
+                    .setPosition(ViewTracker.Position.TopLeft);
+        }
+        return mViewTracker;
     }
 }
 ```
@@ -77,7 +71,7 @@ public class MainActivity extends AppCompatActivity
 /**
  * view的位置追踪接口
  */
-public interface ViewTracker extends Updater.Updatable
+public interface ViewTracker
 {
     /**
      * 设置回调
@@ -140,33 +134,6 @@ public interface ViewTracker extends Updater.Updatable
      * @return
      */
     View getTarget();
-
-    /**
-     * 设置实时更新对象，可以实时更新追踪信息，设置后不能修改
-     *
-     * @param updater
-     * @return
-     */
-    ViewTracker setUpdater(Updater updater);
-
-    /**
-     * 开始实时更新追踪信息，调用此方法前必须先设置一个实时更新对象{@link #setUpdater(Updater)}
-     *
-     * @return true-成功开始
-     */
-    boolean start();
-
-    /**
-     * 停止实时更新追踪信息
-     */
-    void stop();
-
-    /**
-     * 是否已经开始实时更新
-     *
-     * @return
-     */
-    boolean isStarted();
 
     /**
      * 触发一次追踪信息更新
@@ -292,15 +259,6 @@ public interface ViewTracker extends Updater.Updatable
         }
 
         /**
-         * 是否已经开始实时更新回调
-         *
-         * @param isStarted
-         */
-        public void onStateChanged(boolean isStarted)
-        {
-        }
-
-        /**
          * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
          *
          * @param source       源view
@@ -323,51 +281,6 @@ public interface ViewTracker extends Updater.Updatable
          * @param target       目标view
          */
         public abstract void onUpdate(int x, int y, View source, View sourceParent, View target);
-    }
-}
-```
-
-# Updater接口
-```java
-/**
- * 实时更新接口
- */
-public interface Updater
-{
-    /**
-     * 设置要实时更新的对象
-     *
-     * @param updatable
-     */
-    void setUpdatable(Updatable updatable);
-
-    /**
-     * 开始实时更新
-     *
-     * @return true-成功开始
-     */
-    boolean start();
-
-    /**
-     * 停止实时更新
-     */
-    void stop();
-
-    /**
-     * 是否已经开始实时更新
-     *
-     * @return
-     */
-    boolean isStarted();
-
-    interface Updatable
-    {
-        /**
-         * 触发更新
-         *
-         * @return true-更新成功
-         */
-        boolean update();
     }
 }
 ```

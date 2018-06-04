@@ -17,12 +17,10 @@ package com.fanwe.lib.viewtracker;
 
 import android.view.View;
 
-import com.fanwe.lib.viewtracker.update.Updater;
-
 /**
  * view的位置追踪接口
  */
-public interface ViewTracker extends Updater.Updatable
+public interface ViewTracker
 {
     /**
      * 设置回调
@@ -85,33 +83,6 @@ public interface ViewTracker extends Updater.Updatable
      * @return
      */
     View getTarget();
-
-    /**
-     * 设置实时更新对象，可以实时更新追踪信息，设置后不能修改
-     *
-     * @param updater
-     * @return
-     */
-    ViewTracker setUpdater(Updater updater);
-
-    /**
-     * 开始实时更新追踪信息，调用此方法前必须先设置一个实时更新对象{@link #setUpdater(Updater)}
-     *
-     * @return true-成功开始
-     */
-    boolean start();
-
-    /**
-     * 停止实时更新追踪信息
-     */
-    void stop();
-
-    /**
-     * 是否已经开始实时更新
-     *
-     * @return
-     */
-    boolean isStarted();
 
     /**
      * 触发一次追踪信息更新
@@ -233,15 +204,6 @@ public interface ViewTracker extends Updater.Updatable
          * @param oldTarget 旧的目标view，可能为null
          */
         public void onTargetChanged(View newTarget, View oldTarget)
-        {
-        }
-
-        /**
-         * 是否已经开始实时更新回调
-         *
-         * @param isStarted
-         */
-        public void onStateChanged(boolean isStarted)
         {
         }
 
