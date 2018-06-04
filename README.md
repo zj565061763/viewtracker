@@ -27,20 +27,6 @@ public class MainActivity extends AppCompatActivity
         mViewTracker.setCallback(new ViewTracker.Callback()
         {
             /**
-             * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
-             *
-             * @param source       源view
-             * @param sourceParent 源view的父view
-             * @param target       目标view
-             * @return true-可以更新，false-不要更新
-             */
-            @Override
-            public boolean canUpdate(View source, View sourceParent, View target)
-            {
-                return super.canUpdate(source, sourceParent, target);
-            }
-
-            /**
              * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
              *
              * @param x            source相对于父布局需要的x值
@@ -118,7 +104,7 @@ public interface ViewTracker extends Updater.Updatable
     ViewTracker setTarget(View target);
 
     /**
-     * 设置要追踪的位置
+     * 设置要追踪的位置，默认左上角对齐
      *
      * @param position
      * @return
@@ -156,7 +142,7 @@ public interface ViewTracker extends Updater.Updatable
     View getTarget();
 
     /**
-     * 设置实时更新对象，可以实时更新追踪信息
+     * 设置实时更新对象，可以实时更新追踪信息，设置后不能修改
      *
      * @param updater
      * @return
@@ -285,6 +271,35 @@ public interface ViewTracker extends Updater.Updatable
 
     abstract class Callback
     {
+        /**
+         * 源view变化回调
+         *
+         * @param newSource 新的源view，可能为null
+         * @param oldSource 旧的源view，可能为null
+         */
+        public void onSourceChanged(View newSource, View oldSource)
+        {
+        }
+
+        /**
+         * 目标view变化回调
+         *
+         * @param newTarget 新的目标view，可能为null
+         * @param oldTarget 旧的目标view，可能为null
+         */
+        public void onTargetChanged(View newTarget, View oldTarget)
+        {
+        }
+
+        /**
+         * 是否已经开始实时更新回调
+         *
+         * @param isStarted
+         */
+        public void onStateChanged(boolean isStarted)
+        {
+        }
+
         /**
          * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
          *

@@ -31,20 +31,6 @@ public class MainActivity extends AppCompatActivity
         mViewTracker.setCallback(new ViewTracker.Callback()
         {
             /**
-             * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
-             *
-             * @param source       源view
-             * @param sourceParent 源view的父view
-             * @param target       目标view
-             * @return true-可以更新，false-不要更新
-             */
-            @Override
-            public boolean canUpdate(View source, View sourceParent, View target)
-            {
-                return super.canUpdate(source, sourceParent, target);
-            }
-
-            /**
              * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
              *
              * @param x            source相对于父布局需要的x值
