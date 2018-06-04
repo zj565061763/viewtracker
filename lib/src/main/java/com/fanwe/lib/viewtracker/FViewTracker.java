@@ -39,8 +39,8 @@ public class FViewTracker implements ViewTracker
     private int mX;
     private int mY;
 
-    private Callback mCallback;
     private boolean mIsStarted;
+    private Callback mCallback;
 
     @Override
     public ViewTracker setCallback(Callback callback)
