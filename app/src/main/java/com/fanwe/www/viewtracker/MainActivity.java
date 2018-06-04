@@ -8,7 +8,7 @@ import android.view.View;
 import com.fanwe.lib.viewtracker.FViewTracker;
 import com.fanwe.lib.viewtracker.ViewTracker;
 import com.fanwe.lib.viewtracker.ViewTracker.Position;
-import com.fanwe.lib.viewtracker.update.ActivityUpdater;
+import com.fanwe.lib.viewtracker.update.ActivityOnPreDrawUpdater;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
                 /**
                  * 设置实时更新对象，可以实时更新追踪信息
                  */
-                .setUpdater(new ActivityUpdater(this));
+                .setUpdater(new ActivityOnPreDrawUpdater(this));
 
         /**
          * 触发一次追踪信息更新

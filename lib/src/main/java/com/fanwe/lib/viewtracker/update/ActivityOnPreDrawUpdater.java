@@ -18,11 +18,13 @@ package com.fanwe.lib.viewtracker.update;
 import android.app.Activity;
 
 /**
- * Activity实时刷新
+ * 设置监听对象到Activity中id为android.R.id.conent的view来实现实时更新
+ * <p>
+ * 监听对象：{@link android.view.ViewTreeObserver.OnPreDrawListener}
  */
-public class ActivityUpdater extends ViewUpdater
+public class ActivityOnPreDrawUpdater extends OnPreDrawUpdater
 {
-    public ActivityUpdater(Activity activity)
+    public ActivityOnPreDrawUpdater(Activity activity)
     {
         if (activity == null)
             throw new NullPointerException("activity is null");

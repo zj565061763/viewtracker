@@ -28,6 +28,13 @@ public interface Updater
     void setUpdatable(Updatable updatable);
 
     /**
+     * 返回设置的要刷新的对象
+     *
+     * @return
+     */
+    Updatable getUpdatable();
+
+    /**
      * 开始实时更新
      *
      * @return true-成功开始
