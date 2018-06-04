@@ -118,12 +118,17 @@ public class FViewTracker implements ViewTracker
     @Override
     public ViewTracker setUpdater(Updater updater)
     {
-        if (mUpdater != updater)
+        if (mUpdater != null)
+            throw new UnsupportedOperationException("Updater has been provided can not modify");
+
+        if (updater != null)
         {
             mUpdater = updater;
-            if (updater != null)
-                updater.setUpdatable(this);
+            updater.setUpdatable(this);
+
+            updateStarted();
         }
+
         return this;
     }
 
