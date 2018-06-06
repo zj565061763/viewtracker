@@ -210,12 +210,11 @@ public interface ViewTracker
         /**
          * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
          *
-         * @param source       源view
-         * @param sourceParent 源view的父view
-         * @param target       目标view
+         * @param source 源view
+         * @param target 目标view
          * @return true-可以更新，false-不要更新
          */
-        public boolean canUpdate(View source, View sourceParent, View target)
+        public boolean canUpdate(View source, View target)
         {
             return true;
         }
