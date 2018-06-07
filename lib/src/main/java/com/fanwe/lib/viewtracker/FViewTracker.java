@@ -132,9 +132,6 @@ public class FViewTracker implements ViewTracker
         ((View) parent).getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);
 
-        mX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
-        mY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
-
         switch (mPosition)
         {
             case TopLeft:
