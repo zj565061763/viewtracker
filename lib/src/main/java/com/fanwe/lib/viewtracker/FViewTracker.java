@@ -137,19 +137,6 @@ public class FViewTracker implements ViewTracker
 
         switch (mPosition)
         {
-            case Left:
-                layoutLeft(source, target);
-                break;
-            case Top:
-                layoutTop(source, target);
-                break;
-            case Right:
-                layoutRight(source, target);
-                break;
-            case Bottom:
-                layoutBottom(source, target);
-                break;
-
             case TopLeft:
                 layoutTopLeft(source, target);
                 break;
@@ -227,78 +214,92 @@ public class FViewTracker implements ViewTracker
         return true;
     }
 
+    private int getX_alignLeft()
+    {
+        return mLocationTarget[0] - mLocationParent[0] + mMarginX;
+    }
+
+    private int getX_alignRight(View source, View target)
+    {
+        return getX_alignLeft() + (target.getWidth() - source.getWidth());
+    }
+
+    private int getX_alignCenter(View source, View target)
+    {
+        return getX_alignLeft() + (target.getWidth() - source.getWidth()) / 2;
+    }
+
+    private int getY_alignTop()
+    {
+        return mLocationTarget[1] - mLocationParent[1] + mMarginY;
+    }
+
+    private int getY_alignBottom(View source, View target)
+    {
+        return getY_alignTop() + (target.getHeight() - source.getHeight());
+    }
+
+    private int getY_alignCenter(View source, View target)
+    {
+        return getY_alignTop() + (target.getHeight() - source.getHeight()) / 2;
+    }
+
     //---------- position start----------
-
-    private void layoutLeft(View source, View target)
-    {
-        mX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
-    }
-
-    private void layoutTop(View source, View target)
-    {
-        mY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
-    }
-
-    private void layoutRight(View source, View target)
-    {
-        layoutLeft(source, target);
-        mX += target.getWidth() - source.getWidth();
-    }
-
-    private void layoutBottom(View source, View target)
-    {
-        layoutTop(source, target);
-        mY += target.getHeight() - source.getHeight();
-    }
 
     private void layoutTopLeft(View source, View target)
     {
-        layoutLeft(source, target);
-        layoutTop(source, target);
+        mY = getY_alignTop();
+        mX = getX_alignLeft();
     }
 
     private void layoutTopCenter(View source, View target)
     {
-        mX += (target.getWidth() - source.getWidth()) >> 1;
+        mY = getY_alignTop();
+        mX = getX_alignCenter(source, target);
     }
 
     private void layoutTopRight(View source, View target)
     {
-        mX += target.getWidth() - source.getWidth();
+        mY = getY_alignTop();
+        mX = getX_alignRight(source, target);
     }
+
 
     private void layoutLeftCenter(View source, View target)
     {
-        mY += (target.getHeight() - source.getHeight()) >> 1;
+        mX = getX_alignLeft();
+        mY = getY_alignCenter(source, target);
     }
 
     private void layoutCenter(View source, View target)
     {
-        layoutTopCenter(source, target);
-        layoutLeftCenter(source, target);
+        mX = getX_alignCenter(source, target);
+        mY = getY_alignCenter(source, target);
     }
 
     private void layoutRightCenter(View source, View target)
     {
-        layoutTopRight(source, target);
-        layoutLeftCenter(source, target);
+        mX = getX_alignRight(source, target);
+        mY = getY_alignCenter(source, target);
     }
+
 
     private void layoutBottomLeft(View source, View target)
     {
-        mY += target.getHeight() - source.getHeight();
+        mY = getY_alignBottom(source, target);
+        mX = getX_alignLeft();
     }
 
     private void layoutBottomCenter(View source, View target)
     {
-        layoutTopCenter(source, target);
-        layoutBottomLeft(source, target);
+        mY = getY_alignBottom(source, target);
+        mX = getX_alignCenter(source, target);
     }
 
     private void layoutBottomRight(View source, View target)
     {
-        layoutTopRight(source, target);
-        layoutBottomLeft(source, target);
+        mY = getY_alignBottom(source, target);
+        mX = getX_alignRight(source, target);
     }
 
     private void layoutTopOutsideLeft(View source, View target)

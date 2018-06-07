@@ -94,23 +94,6 @@ public interface ViewTracker
     enum Position
     {
         /**
-         * 与target左边对齐
-         */
-        Left,
-        /**
-         * 与target顶部对齐
-         */
-        Top,
-        /**
-         * 与target右边对齐
-         */
-        Right,
-        /**
-         * 与target底部对齐
-         */
-        Bottom,
-
-        /**
          * 与target左上角对齐
          */
         TopLeft,
