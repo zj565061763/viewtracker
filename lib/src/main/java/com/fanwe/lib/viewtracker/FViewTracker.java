@@ -137,6 +137,19 @@ public class FViewTracker implements ViewTracker
 
         switch (mPosition)
         {
+            case Left:
+                layoutLeft(source, target);
+                break;
+            case Top:
+                layoutTop(source, target);
+                break;
+            case Right:
+                layoutRight(source, target);
+                break;
+            case Bottom:
+                layoutBottom(source, target);
+                break;
+
             case TopLeft:
                 layoutTopLeft(source, target);
                 break;
@@ -216,8 +229,32 @@ public class FViewTracker implements ViewTracker
 
     //---------- position start----------
 
+    private void layoutLeft(View source, View target)
+    {
+        mX = mLocationTarget[0] - mLocationParent[0] + mMarginX;
+    }
+
+    private void layoutTop(View source, View target)
+    {
+        mY = mLocationTarget[1] - mLocationParent[1] + mMarginY;
+    }
+
+    private void layoutRight(View source, View target)
+    {
+        layoutLeft(source, target);
+        mX += target.getWidth() - source.getWidth();
+    }
+
+    private void layoutBottom(View source, View target)
+    {
+        layoutTop(source, target);
+        mY += target.getHeight() - source.getHeight();
+    }
+
     private void layoutTopLeft(View source, View target)
     {
+        layoutLeft(source, target);
+        layoutTop(source, target);
     }
 
     private void layoutTopCenter(View source, View target)
