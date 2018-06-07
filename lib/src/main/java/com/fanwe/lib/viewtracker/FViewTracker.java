@@ -163,7 +163,18 @@ public class FViewTracker implements ViewTracker
             case BottomRight:
                 layoutBottomRight(source, target);
                 break;
-            default:
+
+            case Left:
+                layoutLeft(source, target);
+                break;
+            case Top:
+                layoutTop(source, target);
+                break;
+            case Right:
+                layoutRight(source, target);
+                break;
+            case Bottom:
+                layoutBottom(source, target);
                 break;
         }
 
@@ -257,6 +268,31 @@ public class FViewTracker implements ViewTracker
     {
         mY = getY_alignBottom(source, target);
         mX = getX_alignRight(source, target);
+    }
+
+
+    private void layoutLeft(View source, View target)
+    {
+        mX = getX_alignLeft();
+        mY = source.getTop();
+    }
+
+    private void layoutTop(View source, View target)
+    {
+        mY = getY_alignTop();
+        mX = source.getLeft();
+    }
+
+    private void layoutRight(View source, View target)
+    {
+        mX = getX_alignRight(source, target);
+        mY = source.getTop();
+    }
+
+    private void layoutBottom(View source, View target)
+    {
+        mY = getY_alignBottom(source, target);
+        mX = source.getLeft();
     }
 
     //---------- position end----------

@@ -131,6 +131,23 @@ public interface ViewTracker
          * 与target右下角对齐
          */
         BottomRight,
+
+        /**
+         * 与target左边对齐
+         */
+        Left,
+        /**
+         * 与target顶部对齐
+         */
+        Top,
+        /**
+         * 与target右边对齐
+         */
+        Right,
+        /**
+         * 与target底部对齐
+         */
+        Bottom,
     }
 
     abstract class Callback
