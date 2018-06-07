@@ -182,58 +182,6 @@ public interface ViewTracker
          * 与target右下角对齐
          */
         BottomRight,
-
-        /**
-         * 在target的顶部外侧靠左对齐
-         */
-        TopOutsideLeft,
-        /**
-         * 在target的顶部外侧左右居中
-         */
-        TopOutsideCenter,
-        /**
-         * 在target的顶部外侧靠右对齐
-         */
-        TopOutsideRight,
-
-        /**
-         * 在target的底部外侧靠左对齐
-         */
-        BottomOutsideLeft,
-        /**
-         * 在target的底部外侧左右居中
-         */
-        BottomOutsideCenter,
-        /**
-         * 在target的底部外侧靠右对齐
-         */
-        BottomOutsideRight,
-
-        /**
-         * 在target的左边外侧靠顶部对齐
-         */
-        LeftOutsideTop,
-        /**
-         * 在target的左边外侧上下居中
-         */
-        LeftOutsideCenter,
-        /**
-         * 在target的左边外侧靠底部对齐
-         */
-        LeftOutsideBottom,
-
-        /**
-         * 在target的右边外侧靠顶部对齐
-         */
-        RightOutsideTop,
-        /**
-         * 在target的右边外侧上下居中
-         */
-        RightOutsideCenter,
-        /**
-         * 在target的右边外侧靠底部对齐
-         */
-        RightOutsideBottom,
     }
 
     abstract class Callback
@@ -261,12 +209,11 @@ public interface ViewTracker
         /**
          * 在更新追踪信息之前会调用此方法来决定可不可以更新，默认true-可以更新
          *
-         * @param source       源view
-         * @param sourceParent 源view的父view
-         * @param target       目标view
+         * @param source 源view
+         * @param target 目标view
          * @return true-可以更新，false-不要更新
          */
-        public boolean canUpdate(View source, View sourceParent, View target)
+        public boolean canUpdate(View source, View target)
         {
             return true;
         }

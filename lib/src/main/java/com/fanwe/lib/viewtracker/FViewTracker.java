@@ -163,46 +163,6 @@ public class FViewTracker implements ViewTracker
             case BottomRight:
                 layoutBottomRight(source, target);
                 break;
-
-            case TopOutsideLeft:
-                layoutTopOutsideLeft(source, target);
-                break;
-            case TopOutsideCenter:
-                layoutTopOutsideCenter(source, target);
-                break;
-            case TopOutsideRight:
-                layoutTopOutsideRight(source, target);
-                break;
-
-            case BottomOutsideLeft:
-                layoutBottomOutsideLeft(source, target);
-                break;
-            case BottomOutsideCenter:
-                layoutBottomOutsideCenter(source, target);
-                break;
-            case BottomOutsideRight:
-                layoutBottomOutsideRight(source, target);
-                break;
-
-            case LeftOutsideTop:
-                layoutLeftOutsideTop(source, target);
-                break;
-            case LeftOutsideCenter:
-                layoutLeftOutsideCenter(source, target);
-                break;
-            case LeftOutsideBottom:
-                layoutLeftOutsideBottom(source, target);
-                break;
-
-            case RightOutsideTop:
-                layoutRightOutsideTop(source, target);
-                break;
-            case RightOutsideCenter:
-                layoutRightOutsideCenter(source, target);
-                break;
-            case RightOutsideBottom:
-                layoutRightOutsideBottom(source, target);
-                break;
             default:
                 break;
         }
@@ -297,78 +257,6 @@ public class FViewTracker implements ViewTracker
     {
         mY = getY_alignBottom(source, target);
         mX = getX_alignRight(source, target);
-    }
-
-    private void layoutTopOutsideLeft(View source, View target)
-    {
-        layoutTopLeft(source, target);
-        mY -= source.getHeight();
-    }
-
-    private void layoutTopOutsideCenter(View source, View target)
-    {
-        layoutTopCenter(source, target);
-        mY -= source.getHeight();
-    }
-
-    private void layoutTopOutsideRight(View source, View target)
-    {
-        layoutTopRight(source, target);
-        mY -= source.getHeight();
-    }
-
-    private void layoutBottomOutsideLeft(View source, View target)
-    {
-        layoutBottomLeft(source, target);
-        mY += source.getHeight();
-    }
-
-    private void layoutBottomOutsideCenter(View source, View target)
-    {
-        layoutBottomCenter(source, target);
-        mY += source.getHeight();
-    }
-
-    private void layoutBottomOutsideRight(View source, View target)
-    {
-        layoutBottomRight(source, target);
-        mY += source.getHeight();
-    }
-
-    private void layoutLeftOutsideTop(View source, View target)
-    {
-        layoutTopLeft(source, target);
-        mX -= source.getWidth();
-    }
-
-    private void layoutLeftOutsideCenter(View source, View target)
-    {
-        layoutLeftCenter(source, target);
-        mX -= source.getWidth();
-    }
-
-    private void layoutLeftOutsideBottom(View source, View target)
-    {
-        layoutBottomLeft(source, target);
-        mX -= source.getWidth();
-    }
-
-    private void layoutRightOutsideTop(View source, View target)
-    {
-        layoutTopRight(source, target);
-        mX += source.getWidth();
-    }
-
-    private void layoutRightOutsideCenter(View source, View target)
-    {
-        layoutRightCenter(source, target);
-        mX += source.getWidth();
-    }
-
-    private void layoutRightOutsideBottom(View source, View target)
-    {
-        layoutBottomRight(source, target);
-        mX += source.getWidth();
     }
 
     //---------- position end----------
