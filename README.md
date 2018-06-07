@@ -2,7 +2,7 @@
 让某个源view追踪某个目标view，追踪到指定的位置后，回调源view在x和y方向相对于父布局需要是什么值才可以到指定的位置
 
 # Gradle
-`implementation 'com.fanwe.android:viewtracker:1.0.2-rc1'`
+`implementation 'com.fanwe.android:viewtracker:1.0.2'`
 
 # 简单demo
 ```java
