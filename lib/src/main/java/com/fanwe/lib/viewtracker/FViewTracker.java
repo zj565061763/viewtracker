@@ -32,6 +32,9 @@ public class FViewTracker implements ViewTracker
     private int mMarginX;
     private int mMarginY;
 
+    private ViewSize mViewSizeX;
+    private ViewSize mViewSizeY;
+
     private final int[] mLocationTarget = {0, 0};
     private final int[] mLocationParent = {0, 0};
     private int mX;
@@ -95,6 +98,40 @@ public class FViewTracker implements ViewTracker
     public ViewTracker setMarginY(int marginY)
     {
         mMarginY = marginY;
+        return this;
+    }
+
+    @Override
+    public ViewTracker setMarginX(View view, boolean add)
+    {
+        if (view != null)
+        {
+            if (mViewSizeX == null)
+                mViewSizeX = new ViewSize(true);
+
+            mViewSizeX.setView(view);
+            mViewSizeX.setAdd(add);
+        } else
+        {
+            mViewSizeX = null;
+        }
+        return this;
+    }
+
+    @Override
+    public ViewTracker setMarginY(View view, boolean add)
+    {
+        if (view != null)
+        {
+            if (mViewSizeY == null)
+                mViewSizeY = new ViewSize(false);
+
+            mViewSizeY.setView(view);
+            mViewSizeY.setAdd(add);
+        } else
+        {
+            mViewSizeY = null;
+        }
         return this;
     }
 
@@ -178,11 +215,31 @@ public class FViewTracker implements ViewTracker
                 break;
         }
 
-        mX += mMarginX;
-        mY += mMarginY;
+        mX += getMarginXTotal();
+        mY += getMarginYTotal();
 
         mCallback.onUpdate(mX, mY, source, ((View) parent), target);
         return true;
+    }
+
+    private int getMarginXTotal()
+    {
+        int result = mMarginX;
+
+        if (mViewSizeX != null)
+            result += mViewSizeX.getDeltaSize();
+
+        return result;
+    }
+
+    private int getMarginYTotal()
+    {
+        int result = mMarginY;
+
+        if (mViewSizeY != null)
+            result += mViewSizeY.getDeltaSize();
+
+        return result;
     }
 
     private int getX_alignLeft()
@@ -299,4 +356,43 @@ public class FViewTracker implements ViewTracker
     }
 
     //---------- position end----------
+
+    private static final class ViewSize
+    {
+        private WeakReference<View> mView;
+        private boolean mIsAdd;
+        private boolean mIsWidth;
+
+        public ViewSize(boolean isWidth)
+        {
+            mIsWidth = isWidth;
+        }
+
+        public void setAdd(boolean add)
+        {
+            mIsAdd = add;
+        }
+
+        private View getView()
+        {
+            return mView == null ? null : mView.get();
+        }
+
+        public void setView(View view)
+        {
+            final View old = getView();
+            if (old != view)
+                mView = view == null ? null : new WeakReference<>(view);
+        }
+
+        public int getDeltaSize()
+        {
+            final View view = getView();
+            if (view == null)
+                return 0;
+
+            final int size = mIsWidth ? view.getWidth() : view.getHeight();
+            return mIsAdd ? size : -size;
+        }
+    }
 }

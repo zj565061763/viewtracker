@@ -55,7 +55,9 @@ public interface ViewTracker
     ViewTracker setPosition(Position position);
 
     /**
-     * 设置追踪到指定位置后，x轴方向的偏移量，大于0往右，小于0往左
+     * 设置追踪到指定位置后，x值的偏移量，大于0往右，小于0往左
+     * <p>
+     * 注意：此方法和{@link #setMarginX(View, boolean)}方法的值最终会叠加
      *
      * @param marginX
      * @return
@@ -63,12 +65,36 @@ public interface ViewTracker
     ViewTracker setMarginX(int marginX);
 
     /**
-     * 设置追踪到指定位置后，y轴方向的偏移量，大于0往下，小于0往上
+     * 设置追踪到指定位置后，y值的偏移量，大于0往下，小于0往上
+     * <p>
+     * 注意：此方法和{@link #setMarginY(View, boolean)}方法的值最终会叠加
      *
      * @param marginY
      * @return
      */
     ViewTracker setMarginY(int marginY);
+
+    /**
+     * 设置追踪到指定位置后，x值增加或者减少view的宽度
+     * <p>
+     * 注意：此方法和{@link #setMarginX(int)}方法的值最终会叠加
+     *
+     * @param view
+     * @param add  true-增加，false-减少
+     * @return
+     */
+    ViewTracker setMarginX(View view, boolean add);
+
+    /**
+     * 设置追踪到指定位置后，y值增加或者减少view的高度
+     * <p>
+     * 注意：此方法和{@link #setMarginY(int)}方法的值最终会叠加
+     *
+     * @param view
+     * @param add  true-增加，false-减少
+     * @return
+     */
+    ViewTracker setMarginY(View view, boolean add);
 
     /**
      * 返回想要追踪目标的源view
