@@ -178,13 +178,16 @@ public class FViewTracker implements ViewTracker
                 break;
         }
 
+        mX += mMarginX;
+        mY += mMarginY;
+
         mCallback.onUpdate(mX, mY, source, ((View) parent), target);
         return true;
     }
 
     private int getX_alignLeft()
     {
-        return mLocationTarget[0] - mLocationParent[0] + mMarginX;
+        return mLocationTarget[0] - mLocationParent[0];
     }
 
     private int getX_alignRight(View source, View target)
@@ -199,7 +202,7 @@ public class FViewTracker implements ViewTracker
 
     private int getY_alignTop()
     {
-        return mLocationTarget[1] - mLocationParent[1] + mMarginY;
+        return mLocationTarget[1] - mLocationParent[1];
     }
 
     private int getY_alignBottom(View source, View target)
