@@ -181,20 +181,20 @@ public interface ViewTracker
         /**
          * 源view变化回调
          *
-         * @param newSource 新的源view，可能为null
          * @param oldSource 旧的源view，可能为null
+         * @param newSource 新的源view，可能为null
          */
-        public void onSourceChanged(View newSource, View oldSource)
+        public void onSourceChanged(View oldSource, View newSource)
         {
         }
 
         /**
          * 目标view变化回调
          *
-         * @param newTarget 新的目标view，可能为null
          * @param oldTarget 旧的目标view，可能为null
+         * @param newTarget 新的目标view，可能为null
          */
-        public void onTargetChanged(View newTarget, View oldTarget)
+        public void onTargetChanged(View oldTarget, View newTarget)
         {
         }
 

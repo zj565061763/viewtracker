@@ -58,7 +58,7 @@ public class FViewTracker implements ViewTracker
             mSource = source == null ? null : new WeakReference<>(source);
 
             if (mCallback != null)
-                mCallback.onSourceChanged(source, old);
+                mCallback.onSourceChanged(old, source);
         }
         return this;
     }
@@ -72,7 +72,7 @@ public class FViewTracker implements ViewTracker
             mTarget = target == null ? null : new WeakReference<>(target);
 
             if (mCallback != null)
-                mCallback.onTargetChanged(target, old);
+                mCallback.onTargetChanged(old, target);
         }
         return this;
     }
@@ -276,20 +276,20 @@ public class FViewTracker implements ViewTracker
 
     private void layoutTopLeft(View source, View target)
     {
-        mY = getY_alignTop();
         mX = getX_alignLeft();
+        mY = getY_alignTop();
     }
 
     private void layoutTopCenter(View source, View target)
     {
-        mY = getY_alignTop();
         mX = getX_alignCenter(source, target);
+        mY = getY_alignTop();
     }
 
     private void layoutTopRight(View source, View target)
     {
-        mY = getY_alignTop();
         mX = getX_alignRight(source, target);
+        mY = getY_alignTop();
     }
 
 
@@ -314,20 +314,20 @@ public class FViewTracker implements ViewTracker
 
     private void layoutBottomLeft(View source, View target)
     {
-        mY = getY_alignBottom(source, target);
         mX = getX_alignLeft();
+        mY = getY_alignBottom(source, target);
     }
 
     private void layoutBottomCenter(View source, View target)
     {
-        mY = getY_alignBottom(source, target);
         mX = getX_alignCenter(source, target);
+        mY = getY_alignBottom(source, target);
     }
 
     private void layoutBottomRight(View source, View target)
     {
-        mY = getY_alignBottom(source, target);
         mX = getX_alignRight(source, target);
+        mY = getY_alignBottom(source, target);
     }
 
 
@@ -339,8 +339,8 @@ public class FViewTracker implements ViewTracker
 
     private void layoutTop(View source, View target)
     {
-        mY = getY_alignTop();
         mX = source.getLeft();
+        mY = getY_alignTop();
     }
 
     private void layoutRight(View source, View target)
@@ -351,8 +351,8 @@ public class FViewTracker implements ViewTracker
 
     private void layoutBottom(View source, View target)
     {
-        mY = getY_alignBottom(source, target);
         mX = source.getLeft();
+        mY = getY_alignBottom(source, target);
     }
 
     //---------- position end----------
@@ -360,8 +360,8 @@ public class FViewTracker implements ViewTracker
     private static final class ViewSize
     {
         private WeakReference<View> mView;
+        private final boolean mIsWidth;
         private boolean mIsAdd;
-        private boolean mIsWidth;
 
         public ViewSize(boolean isWidth)
         {
