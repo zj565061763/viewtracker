@@ -102,36 +102,16 @@ public class FViewTracker implements ViewTracker
     }
 
     @Override
-    public ViewTracker setMarginX(View view, boolean add)
+    public ViewTracker setMarginX(ViewSize viewSize)
     {
-        if (view != null)
-        {
-            if (mViewSizeX == null)
-                mViewSizeX = new ViewSize(true);
-
-            mViewSizeX.setView(view);
-            mViewSizeX.setAdd(add);
-        } else
-        {
-            mViewSizeX = null;
-        }
+        mViewSizeX = viewSize;
         return this;
     }
 
     @Override
-    public ViewTracker setMarginY(View view, boolean add)
+    public ViewTracker setMarginY(ViewSize viewSize)
     {
-        if (view != null)
-        {
-            if (mViewSizeY == null)
-                mViewSizeY = new ViewSize(false);
-
-            mViewSizeY.setView(view);
-            mViewSizeY.setAdd(add);
-        } else
-        {
-            mViewSizeY = null;
-        }
+        mViewSizeY = viewSize;
         return this;
     }
 
@@ -227,7 +207,7 @@ public class FViewTracker implements ViewTracker
         int result = mMarginX;
 
         if (mViewSizeX != null)
-            result += mViewSizeX.getDeltaSize();
+            result += mViewSizeX.getSize();
 
         return result;
     }
@@ -237,7 +217,7 @@ public class FViewTracker implements ViewTracker
         int result = mMarginY;
 
         if (mViewSizeY != null)
-            result += mViewSizeY.getDeltaSize();
+            result += mViewSizeY.getSize();
 
         return result;
     }
@@ -357,42 +337,5 @@ public class FViewTracker implements ViewTracker
 
     //---------- position end----------
 
-    private static final class ViewSize
-    {
-        private WeakReference<View> mView;
-        private final boolean mIsWidth;
-        private boolean mIsAdd;
 
-        public ViewSize(boolean isWidth)
-        {
-            mIsWidth = isWidth;
-        }
-
-        public void setAdd(boolean add)
-        {
-            mIsAdd = add;
-        }
-
-        private View getView()
-        {
-            return mView == null ? null : mView.get();
-        }
-
-        public void setView(View view)
-        {
-            final View old = getView();
-            if (old != view)
-                mView = view == null ? null : new WeakReference<>(view);
-        }
-
-        public int getDeltaSize()
-        {
-            final View view = getView();
-            if (view == null)
-                return 0;
-
-            final int size = mIsWidth ? view.getWidth() : view.getHeight();
-            return mIsAdd ? size : -size;
-        }
-    }
 }
