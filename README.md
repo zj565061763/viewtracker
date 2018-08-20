@@ -38,16 +38,15 @@ public class MainActivity extends AppCompatActivity
             mViewTracker.setCallback(new ViewTracker.Callback()
             {
                 /**
-                 * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
+                 * 按照指定的位置{@link Position}追踪到target后回调，回调source相对于父布局的x和y值
                  *
-                 * @param x            source相对于父布局需要的x值
-                 * @param y            source相对于父布局需要的y值
-                 * @param source       源view
-                 * @param sourceParent 源view的父view
-                 * @param target       目标view
+                 * @param x      source相对于父布局的x值
+                 * @param y      source相对于父布局的y值
+                 * @param source 源view
+                 * @param target 目标view
                  */
                 @Override
-                public void onUpdate(int x, int y, View source, View sourceParent, View target)
+                public void onUpdate(int x, int y, View source, View target)
                 {
                     Log.i(TAG, x + "," + y);
                 }
@@ -108,7 +107,7 @@ public interface ViewTracker
     /**
      * 设置追踪到指定位置后，x值的偏移量，大于0往右，小于0往左
      * <p>
-     * 注意：此方法和{@link #setMarginX(View, boolean)}方法的值最终会叠加
+     * 注意：此方法和{@link #setMarginX(ViewSize)}方法的值最终会叠加
      *
      * @param marginX
      * @return
@@ -118,7 +117,7 @@ public interface ViewTracker
     /**
      * 设置追踪到指定位置后，y值的偏移量，大于0往下，小于0往上
      * <p>
-     * 注意：此方法和{@link #setMarginY(View, boolean)}方法的值最终会叠加
+     * 注意：此方法和{@link #setMarginY(ViewSize)}方法的值最终会叠加
      *
      * @param marginY
      * @return
@@ -126,26 +125,24 @@ public interface ViewTracker
     ViewTracker setMarginY(int marginY);
 
     /**
-     * 设置追踪到指定位置后，x值增加或者减少view的宽度
+     * 设置追踪到指定位置后，x值的偏移量
      * <p>
      * 注意：此方法和{@link #setMarginX(int)}方法的值最终会叠加
      *
-     * @param view
-     * @param add  true-增加，false-减少
+     * @param viewSize
      * @return
      */
-    ViewTracker setMarginX(View view, boolean add);
+    ViewTracker setMarginX(ViewSize viewSize);
 
     /**
-     * 设置追踪到指定位置后，y值增加或者减少view的高度
+     * 设置追踪到指定位置后，y值的偏移量
      * <p>
      * 注意：此方法和{@link #setMarginY(int)}方法的值最终会叠加
      *
-     * @param view
-     * @param add  true-增加，false-减少
+     * @param viewSize
      * @return
      */
-    ViewTracker setMarginY(View view, boolean add);
+    ViewTracker setMarginY(ViewSize viewSize);
 
     /**
      * 返回想要追踪目标的源view
@@ -262,15 +259,55 @@ public interface ViewTracker
         }
 
         /**
-         * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
+         * 按照指定的位置{@link Position}追踪到target后回调，回调source相对于父布局的x和y值
          *
-         * @param x            source相对于父布局需要的x值
-         * @param y            source相对于父布局需要的y值
-         * @param source       源view
-         * @param sourceParent 源view的父view
-         * @param target       目标view
+         * @param x      source相对于父布局的x值
+         * @param y      source相对于父布局的y值
+         * @param source 源view
+         * @param target 目标view
          */
-        public abstract void onUpdate(int x, int y, View source, View sourceParent, View target);
+        public abstract void onUpdate(int x, int y, View source, View target);
+    }
+
+    class ViewSize
+    {
+        private final WeakReference<View> mView;
+        private final boolean mIsWidth;
+        private final boolean mIsAdd;
+
+        /**
+         * view大小
+         *
+         * @param view
+         * @param isWidth true-宽度，false-高度
+         * @param isAdd   true-正值，false-负值
+         */
+        public ViewSize(View view, boolean isWidth, boolean isAdd)
+        {
+            mView = new WeakReference<>(view);
+            mIsWidth = isWidth;
+            mIsAdd = isAdd;
+        }
+
+        private View getView()
+        {
+            return mView == null ? null : mView.get();
+        }
+
+        /**
+         * 返回大小
+         *
+         * @return
+         */
+        public int getSize()
+        {
+            final View view = getView();
+            if (view == null)
+                return 0;
+
+            final int size = mIsWidth ? view.getWidth() : view.getHeight();
+            return mIsAdd ? size : -size;
+        }
     }
 }
 ```
