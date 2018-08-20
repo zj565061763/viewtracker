@@ -29,11 +29,6 @@ public class FViewTracker implements ViewTracker
     private WeakReference<View> mTarget;
 
     private Position mPosition = Position.TopRight;
-    private int mMarginX;
-    private int mMarginY;
-
-    private ViewSize mViewSizeX;
-    private ViewSize mViewSizeY;
 
     private final int[] mLocationTarget = {0, 0};
     private final int[] mLocationParent = {0, 0};
@@ -84,34 +79,6 @@ public class FViewTracker implements ViewTracker
             throw new NullPointerException("position is null");
 
         mPosition = position;
-        return this;
-    }
-
-    @Override
-    public ViewTracker setMarginX(int marginX)
-    {
-        mMarginX = marginX;
-        return this;
-    }
-
-    @Override
-    public ViewTracker setMarginY(int marginY)
-    {
-        mMarginY = marginY;
-        return this;
-    }
-
-    @Override
-    public ViewTracker setMarginX(ViewSize viewSize)
-    {
-        mViewSizeX = viewSize;
-        return this;
-    }
-
-    @Override
-    public ViewTracker setMarginY(ViewSize viewSize)
-    {
-        mViewSizeY = viewSize;
         return this;
     }
 
@@ -195,31 +162,8 @@ public class FViewTracker implements ViewTracker
                 break;
         }
 
-        mX += getMarginXTotal();
-        mY += getMarginYTotal();
-
         mCallback.onUpdate(mX, mY, source, target);
         return true;
-    }
-
-    private int getMarginXTotal()
-    {
-        int result = mMarginX;
-
-        if (mViewSizeX != null)
-            result += mViewSizeX.getSize();
-
-        return result;
-    }
-
-    private int getMarginYTotal()
-    {
-        int result = mMarginY;
-
-        if (mViewSizeY != null)
-            result += mViewSizeY.getSize();
-
-        return result;
     }
 
     private int getX_alignLeft()
@@ -336,6 +280,4 @@ public class FViewTracker implements ViewTracker
     }
 
     //---------- position end----------
-
-
 }
