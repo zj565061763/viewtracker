@@ -218,7 +218,7 @@ public class FViewTracker implements ViewTracker
         mX += getMarginXTotal();
         mY += getMarginYTotal();
 
-        mCallback.onUpdate(mX, mY, source, ((View) parent), target);
+        mCallback.onUpdate(mX, mY, source, target);
         return true;
     }
 

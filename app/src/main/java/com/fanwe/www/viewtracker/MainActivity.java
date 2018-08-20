@@ -41,16 +41,15 @@ public class MainActivity extends AppCompatActivity
             mViewTracker.setCallback(new ViewTracker.Callback()
             {
                 /**
-                 * 按照指定的位置{@link Position}追踪到target后回调，回调source在x和y方向需要是什么值才可以到指定的位置
+                 * 按照指定的位置{@link Position}追踪到target后回调，回调source相对于父布局的x和y值
                  *
-                 * @param x            source相对于父布局需要的x值
-                 * @param y            source相对于父布局需要的y值
-                 * @param source       源view
-                 * @param sourceParent 源view的父view
-                 * @param target       目标view
+                 * @param x      source相对于父布局的x值
+                 * @param y      source相对于父布局的y值
+                 * @param source 源view
+                 * @param target 目标view
                  */
                 @Override
-                public void onUpdate(int x, int y, View source, View sourceParent, View target)
+                public void onUpdate(int x, int y, View source, View target)
                 {
                     Log.i(TAG, x + "," + y);
                 }
