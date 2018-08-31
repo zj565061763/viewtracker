@@ -1,13 +1,13 @@
-package com.fanwe.www.viewtracker;
+package com.sd.www.viewtracker;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.fanwe.lib.viewtracker.FViewTracker;
-import com.fanwe.lib.viewtracker.ViewTracker;
-import com.fanwe.lib.viewtracker.ViewTracker.Position;
+import com.sd.lib.viewtracker.FViewTracker;
+import com.sd.lib.viewtracker.ViewTracker;
+import com.sd.lib.viewtracker.ViewTracker.Position;
 
 public class MainActivity extends AppCompatActivity
 {
