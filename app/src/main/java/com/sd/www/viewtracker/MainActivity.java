@@ -50,13 +50,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
-            mViewTracker
-                    // 设置源view
-                    .setSource(mBinding.viewSource)
-                    // 设置目标view
-                    .setTarget(mBinding.viewTarget)
-                    // 设置要追踪的位置，默认左上角对齐
-                    .setPosition(ViewTracker.Position.TopLeft);
+            // 设置源view
+            mViewTracker.setSource(mBinding.viewSource);
+            // 设置目标view
+            mViewTracker.setTarget(mBinding.viewTarget);
         }
         return mViewTracker;
     }
