@@ -76,6 +76,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             getViewTracker().setPosition(Position.TopRight);
             getViewTracker().update();
+        } else if (v == mBinding.btnLeftCenter)
+        {
+            getViewTracker().setPosition(Position.LeftCenter);
+            getViewTracker().update();
+        } else if (v == mBinding.btnCenter)
+        {
+            getViewTracker().setPosition(Position.Center);
+            getViewTracker().update();
+        } else if (v == mBinding.btnRightCenter)
+        {
+            getViewTracker().setPosition(Position.RightCenter);
+            getViewTracker().update();
         }
     }
 }
