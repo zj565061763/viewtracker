@@ -1,34 +1,29 @@
 package com.sd.www.viewtracker;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.lib.viewtracker.FViewTracker;
 import com.sd.lib.viewtracker.ViewTracker;
 import com.sd.lib.viewtracker.ViewTracker.Position;
+import com.sd.www.viewtracker.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    private ActivityMainBinding mBinding;
     private ViewTracker mViewTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        findViewById(R.id.btn_source).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                // 触发一次追踪信息更新
-                getViewTracker().update();
-            }
-        });
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
     }
 
     public ViewTracker getViewTracker()
@@ -57,12 +52,30 @@ public class MainActivity extends AppCompatActivity
 
             mViewTracker
                     // 设置源view
-                    .setSource(findViewById(R.id.btn_source))
+                    .setSource(mBinding.viewSource)
                     // 设置目标view
-                    .setTarget(findViewById(R.id.btn_target))
+                    .setTarget(mBinding.viewTarget)
                     // 设置要追踪的位置，默认左上角对齐
                     .setPosition(ViewTracker.Position.TopLeft);
         }
         return mViewTracker;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        if (v == mBinding.btnTopLeft)
+        {
+            getViewTracker().setPosition(Position.TopLeft);
+            getViewTracker().update();
+        } else if (v == mBinding.btnTopCenter)
+        {
+            getViewTracker().setPosition(Position.TopCenter);
+            getViewTracker().update();
+        } else if (v == mBinding.btnTopRight)
+        {
+            getViewTracker().setPosition(Position.TopRight);
+            getViewTracker().update();
+        }
     }
 }

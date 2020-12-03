@@ -4,21 +4,51 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btn_source"
+        android:id="@+id/view_source"
         android:layout_width="100px"
         android:layout_height="100px"
-        android:layout_marginLeft="100px"
-        android:layout_marginTop="100px"
+        android:layout_marginLeft="200px"
+        android:layout_marginTop="200px"
         android:text="source"
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/btn_target"
-        android:layout_width="150px"
-        android:layout_height="150px"
-        android:layout_marginLeft="150px"
-        android:layout_marginTop="150px"
+        android:id="@+id/view_target"
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:layout_marginLeft="400px"
+        android:layout_marginTop="400px"
         android:text="target"
         android:textAllCaps="false" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/btn_top_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:onClick="onClick"
+            android:text="TopLeft" />
+
+        <TextView
+            android:id="@+id/btn_top_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:onClick="onClick"
+            android:text="TopCenter" />
+
+        <TextView
+            android:id="@+id/btn_top_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:onClick="onClick"
+            android:text="TopRight" />
+
+    </FrameLayout>
 
 </FrameLayout>
