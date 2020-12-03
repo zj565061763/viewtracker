@@ -102,7 +102,7 @@ public class FViewTracker implements ViewTracker
             return false;
 
         ((View) parent).getLocationOnScreen(mLocationParent);
-        getTarget().getLocationOnScreen(mLocationTarget);
+        target.getLocationOnScreen(mLocationTarget);
 
         switch (mPosition)
         {
