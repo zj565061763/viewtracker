@@ -5,19 +5,19 @@
 
     <Button
         android:id="@+id/btn_source"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="100px"
+        android:layout_marginTop="100px"
         android:text="source"
         android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_target"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="150dp"
+        android:layout_width="150px"
+        android:layout_height="150px"
+        android:layout_marginLeft="150px"
+        android:layout_marginTop="150px"
         android:text="target"
         android:textAllCaps="false" />
 
