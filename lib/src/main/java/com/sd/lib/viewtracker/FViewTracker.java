@@ -98,6 +98,9 @@ public class FViewTracker implements ViewTracker
         if (parent == null)
             return false;
 
+        if (!(parent instanceof View))
+            return false;
+
         ((View) parent).getLocationOnScreen(mLocationParent);
         getTarget().getLocationOnScreen(mLocationTarget);
 
