@@ -73,6 +73,30 @@
             android:onClick="onClick"
             android:text="RightCenter" />
 
+        <TextView
+            android:id="@+id/btn_bottom_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:onClick="onClick"
+            android:text="BottomLeft" />
+
+        <TextView
+            android:id="@+id/btn_bottom_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:onClick="onClick"
+            android:text="BottomCenter" />
+
+        <TextView
+            android:id="@+id/btn_bottom_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:onClick="onClick"
+            android:text="BottomRight" />
+
     </FrameLayout>
 
 </FrameLayout>
