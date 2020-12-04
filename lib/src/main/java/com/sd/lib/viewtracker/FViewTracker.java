@@ -1,5 +1,6 @@
 package com.sd.lib.viewtracker;
 
+import android.os.Build;
 import android.view.View;
 import android.view.ViewParent;
 
@@ -99,6 +100,9 @@ public class FViewTracker implements ViewTracker
             return false;
 
         if (!(parent instanceof View))
+            return false;
+
+        if (!isViewAttached(source) || !isViewAttached(target))
             return false;
 
         ((View) parent).getLocationOnScreen(mLocationParent);
@@ -268,4 +272,15 @@ public class FViewTracker implements ViewTracker
     }
 
     //---------- position end----------
+
+    private static boolean isViewAttached(View view)
+    {
+        if (view == null)
+            return false;
+
+        if (Build.VERSION.SDK_INT >= 19)
+            return view.isAttachedToWindow();
+        else
+            return view.getWindowToken() != null;
+    }
 }
