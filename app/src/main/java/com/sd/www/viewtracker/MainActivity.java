@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  * @param target 目标view
                  */
                 @Override
-                public void onUpdate(int x, int y, @NonNull View source,@NonNull  View target) {
+                public void onUpdate(int x, int y, @NonNull View source, @NonNull View target) {
                     Log.i(TAG, x + "," + y);
+                    source.layout(x, y, x + source.getMeasuredWidth(), y + source.getMeasuredHeight());
                 }
             });
             // 设置源view
