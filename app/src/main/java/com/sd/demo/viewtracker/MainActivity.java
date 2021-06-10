@@ -65,33 +65,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if (v == mBinding.btnStart) {
+            // 开始追踪
+            getViewTracker().start();
+        } else if (v == mBinding.btnStop) {
+            // 停止追踪
+            getViewTracker().stop();
+        }
+
         if (v == mBinding.btnTopLeft) {
             getViewTracker().setPosition(Position.TopLeft);
-            getViewTracker().start();
         } else if (v == mBinding.btnTopCenter) {
             getViewTracker().setPosition(Position.TopCenter);
-            getViewTracker().start();
         } else if (v == mBinding.btnTopRight) {
             getViewTracker().setPosition(Position.TopRight);
-            getViewTracker().start();
         } else if (v == mBinding.btnLeftCenter) {
             getViewTracker().setPosition(Position.LeftCenter);
-            getViewTracker().start();
         } else if (v == mBinding.btnCenter) {
             getViewTracker().setPosition(Position.Center);
-            getViewTracker().start();
         } else if (v == mBinding.btnRightCenter) {
             getViewTracker().setPosition(Position.RightCenter);
-            getViewTracker().start();
         } else if (v == mBinding.btnBottomLeft) {
             getViewTracker().setPosition(Position.BottomLeft);
-            getViewTracker().start();
         } else if (v == mBinding.btnBottomCenter) {
             getViewTracker().setPosition(Position.BottomCenter);
-            getViewTracker().start();
         } else if (v == mBinding.btnBottomRight) {
             getViewTracker().setPosition(Position.BottomRight);
-            getViewTracker().start();
         }
     }
 }
