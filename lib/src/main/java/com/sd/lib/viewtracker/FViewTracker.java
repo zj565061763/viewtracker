@@ -4,6 +4,9 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewParent;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -23,52 +26,44 @@ public class FViewTracker implements ViewTracker {
     private Callback mCallback;
 
     @Override
-    public ViewTracker setCallback(Callback callback) {
+    public void setCallback(@Nullable Callback callback) {
         mCallback = callback;
-        return this;
     }
 
     @Override
-    public ViewTracker setSource(final View source) {
+    public void setSource(@Nullable View source) {
         final View old = getSource();
         if (old != source) {
             mSource = source == null ? null : new WeakReference<>(source);
-
             if (mCallback != null) {
                 mCallback.onSourceChanged(old, source);
             }
         }
-        return this;
     }
 
     @Override
-    public ViewTracker setTarget(final View target) {
+    public void setTarget(@Nullable View target) {
         final View old = getTarget();
         if (old != target) {
             mTarget = target == null ? null : new WeakReference<>(target);
-
             if (mCallback != null) {
                 mCallback.onTargetChanged(old, target);
             }
         }
-        return this;
     }
 
     @Override
-    public ViewTracker setPosition(Position position) {
-        if (position == null) {
-            throw new NullPointerException("position is null");
-        }
-
+    public void setPosition(@NonNull Position position) {
         mPosition = position;
-        return this;
     }
 
+    @Nullable
     @Override
     public View getSource() {
         return mSource == null ? null : mSource.get();
     }
 
+    @Nullable
     @Override
     public View getTarget() {
         return mTarget == null ? null : mTarget.get();

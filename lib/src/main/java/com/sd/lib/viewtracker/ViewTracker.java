@@ -12,22 +12,22 @@ public interface ViewTracker {
     /**
      * 设置回调
      */
-    ViewTracker setCallback(@Nullable Callback callback);
+    void setCallback(@Nullable Callback callback);
 
     /**
      * 设置源view
      */
-    ViewTracker setSource(@Nullable View source);
+    void setSource(@Nullable View source);
 
     /**
      * 设置目标view
      */
-    ViewTracker setTarget(@Nullable View target);
+    void setTarget(@Nullable View target);
 
     /**
      * 设置要追踪的位置{@link Position}，默认左上角对齐
      */
-    ViewTracker setPosition(@NonNull Position position);
+    void setPosition(@NonNull Position position);
 
     /**
      * 返回想要追踪目标的源view
