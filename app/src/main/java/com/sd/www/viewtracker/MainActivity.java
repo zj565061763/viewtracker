@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ViewTracker getViewTracker() {
         if (mViewTracker == null) {
             mViewTracker = new FViewTracker();
-
             // 设置回调对象
             mViewTracker.setCallback(new ViewTracker.Callback() {
                 /**
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.i(TAG, x + "," + y);
                 }
             });
-
             // 设置源view
             mViewTracker.setSource(mBinding.viewSource);
             // 设置目标view
