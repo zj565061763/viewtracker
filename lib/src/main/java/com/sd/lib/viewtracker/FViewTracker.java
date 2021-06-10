@@ -71,7 +71,8 @@ public class FViewTracker implements ViewTracker {
 
     @Override
     public final boolean update() {
-        if (mCallback == null) {
+        final Callback callback = mCallback;
+        if (callback == null) {
             return false;
         }
 
@@ -81,7 +82,7 @@ public class FViewTracker implements ViewTracker {
             return false;
         }
 
-        if (!mCallback.canUpdate(source, target)) {
+        if (!callback.canUpdate(source, target)) {
             return false;
         }
 
@@ -142,7 +143,7 @@ public class FViewTracker implements ViewTracker {
                 break;
         }
 
-        mCallback.onUpdate(mX, mY, source, target);
+        callback.onUpdate(mX, mY, source, target);
         return true;
     }
 
