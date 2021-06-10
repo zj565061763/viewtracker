@@ -87,10 +87,6 @@ public class FViewTracker implements ViewTracker {
         }
 
         final ViewParent parent = source.getParent();
-        if (parent == null) {
-            return false;
-        }
-
         if (!(parent instanceof View)) {
             return false;
         }
