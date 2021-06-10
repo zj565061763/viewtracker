@@ -1,57 +1,42 @@
 # About
-让某个源view追踪某个目标view，追踪到指定的位置后，回调源view在x和y方向相对于父布局需要是什么值才可以到指定的位置
+让源view追踪目标view，回调源view的x和y相对于父布局需要是什么值才可以到达指定位置
 
 # Gradle
 [![](https://jitpack.io/v/zj565061763/viewtracker.svg)](https://jitpack.io/#zj565061763/viewtracker)
 
 # 接口
 ```java
-public interface ViewTracker
-{
+public interface ViewTracker {
     /**
      * 设置回调
-     *
-     * @param callback
-     * @return
      */
-    ViewTracker setCallback(Callback callback);
+    void setCallback(@Nullable Callback callback);
 
     /**
      * 设置源view
-     *
-     * @param source
-     * @return
      */
-    ViewTracker setSource(View source);
+    void setSource(@Nullable View source);
 
     /**
      * 设置目标view
-     *
-     * @param target
-     * @return
      */
-    ViewTracker setTarget(View target);
+    void setTarget(@Nullable View target);
 
     /**
-     * 设置要追踪的位置，默认左上角对齐
-     *
-     * @param position
-     * @return
+     * 设置要追踪的位置{@link Position}，默认左上角对齐
      */
-    ViewTracker setPosition(Position position);
+    void setPosition(@NonNull Position position);
 
     /**
      * 返回想要追踪目标的源view
-     *
-     * @return
      */
+    @Nullable
     View getSource();
 
     /**
      * 返回目标view
-     *
-     * @return
      */
+    @Nullable
     View getTarget();
 
     /**
@@ -61,85 +46,55 @@ public interface ViewTracker
      */
     boolean update();
 
-    enum Position
-    {
-        /**
-         * 与target左上角对齐
-         */
+    enum Position {
+        /** 与target左上角对齐 */
         TopLeft,
-        /**
-         * 与target顶部中间对齐
-         */
+        /** 与target顶部中间对齐 */
         TopCenter,
-        /**
-         * 与target右上角对齐
-         */
+        /** 与target右上角对齐 */
         TopRight,
 
-        /**
-         * 与target左边中间对齐
-         */
+        /** 与target左边中间对齐 */
         LeftCenter,
-        /**
-         * 中间对齐
-         */
+        /** 中间对齐 */
         Center,
-        /**
-         * 与target右边中间对齐
-         */
+        /** 与target右边中间对齐 */
         RightCenter,
 
-        /**
-         * 与target左下角对齐
-         */
+        /** 与target左下角对齐 */
         BottomLeft,
-        /**
-         * 与target底部中间对齐
-         */
+        /** 与target底部中间对齐 */
         BottomCenter,
-        /**
-         * 与target右下角对齐
-         */
+        /** 与target右下角对齐 */
         BottomRight,
 
-        /**
-         * 与target左边对齐
-         */
+        /** 与target左边对齐 */
         Left,
-        /**
-         * 与target顶部对齐
-         */
+        /** 与target顶部对齐 */
         Top,
-        /**
-         * 与target右边对齐
-         */
+        /** 与target右边对齐 */
         Right,
-        /**
-         * 与target底部对齐
-         */
+        /** 与target底部对齐 */
         Bottom,
     }
 
-    abstract class Callback
-    {
+    abstract class Callback {
         /**
          * 源view变化回调
          *
-         * @param oldSource 旧的源view，可能为null
-         * @param newSource 新的源view，可能为null
+         * @param oldSource 旧的源view
+         * @param newSource 新的源view
          */
-        public void onSourceChanged(View oldSource, View newSource)
-        {
+        public void onSourceChanged(@Nullable View oldSource, @Nullable View newSource) {
         }
 
         /**
          * 目标view变化回调
          *
-         * @param oldTarget 旧的目标view，可能为null
-         * @param newTarget 新的目标view，可能为null
+         * @param oldTarget 旧的目标view
+         * @param newTarget 新的目标view
          */
-        public void onTargetChanged(View oldTarget, View newTarget)
-        {
+        public void onTargetChanged(@Nullable View oldTarget, @Nullable View newTarget) {
         }
 
         /**
@@ -149,8 +104,7 @@ public interface ViewTracker
          * @param target 目标view
          * @return true-可以更新，false-不要更新
          */
-        public boolean canUpdate(View source, View target)
-        {
+        public boolean canUpdate(@NonNull View source, @NonNull View target) {
             return true;
         }
 
@@ -162,7 +116,7 @@ public interface ViewTracker
          * @param source 源view
          * @param target 目标view
          */
-        public abstract void onUpdate(int x, int y, View source, View target);
+        public abstract void onUpdate(int x, int y, @NonNull View source, @NonNull View target);
     }
 }
 ```
