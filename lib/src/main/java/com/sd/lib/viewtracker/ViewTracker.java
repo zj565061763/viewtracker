@@ -5,8 +5,7 @@ import android.view.View;
 /**
  * view的位置追踪接口
  */
-public interface ViewTracker
-{
+public interface ViewTracker {
     /**
      * 设置回调
      *
@@ -60,8 +59,7 @@ public interface ViewTracker
      */
     boolean update();
 
-    enum Position
-    {
+    enum Position {
         /**
          * 与target左上角对齐
          */
@@ -119,16 +117,14 @@ public interface ViewTracker
         Bottom,
     }
 
-    abstract class Callback
-    {
+    abstract class Callback {
         /**
          * 源view变化回调
          *
          * @param oldSource 旧的源view，可能为null
          * @param newSource 新的源view，可能为null
          */
-        public void onSourceChanged(View oldSource, View newSource)
-        {
+        public void onSourceChanged(View oldSource, View newSource) {
         }
 
         /**
@@ -137,8 +133,7 @@ public interface ViewTracker
          * @param oldTarget 旧的目标view，可能为null
          * @param newTarget 新的目标view，可能为null
          */
-        public void onTargetChanged(View oldTarget, View newTarget)
-        {
+        public void onTargetChanged(View oldTarget, View newTarget) {
         }
 
         /**
@@ -148,8 +143,7 @@ public interface ViewTracker
          * @param target 目标view
          * @return true-可以更新，false-不要更新
          */
-        public boolean canUpdate(View source, View target)
-        {
+        public boolean canUpdate(View source, View target) {
             return true;
         }
 
