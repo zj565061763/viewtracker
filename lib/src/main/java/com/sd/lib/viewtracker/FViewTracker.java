@@ -95,6 +95,10 @@ public class FViewTracker implements ViewTracker {
             return false;
         }
 
+        if (source.getWidth() <= 0 || source.getHeight() <= 0) {
+            return false;
+        }
+
         ((View) parent).getLocationOnScreen(mLocationSourceParent);
         target.getLocationOnScreen(mLocationTarget);
 
