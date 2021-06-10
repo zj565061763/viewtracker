@@ -77,12 +77,11 @@ public class FViewTracker implements ViewTracker {
 
         final View source = getSource();
         final View target = getTarget();
-
-        if (!mCallback.canUpdate(source, target)) {
+        if (source == null || target == null) {
             return false;
         }
 
-        if (source == null || target == null) {
+        if (!mCallback.canUpdate(source, target)) {
             return false;
         }
 

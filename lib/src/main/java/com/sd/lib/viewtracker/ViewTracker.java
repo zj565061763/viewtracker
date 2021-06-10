@@ -106,7 +106,7 @@ public interface ViewTracker {
          * @param target 目标view
          * @return true-可以更新，false-不要更新
          */
-        public boolean canUpdate(View source, View target) {
+        public boolean canUpdate(@NonNull View source, @NonNull View target) {
             return true;
         }
 
