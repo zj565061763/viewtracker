@@ -1,4 +1,4 @@
-package com.sd.www.viewtracker;
+package com.sd.demo.viewtracker;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sd.lib.viewtracker.FViewTracker;
 import com.sd.lib.viewtracker.ViewTracker;
 import com.sd.lib.viewtracker.ViewTracker.Position;
-import com.sd.www.viewtracker.databinding.ActivityMainBinding;
+import com.sd.demo.viewtracker.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = MainActivity.class.getSimpleName();
