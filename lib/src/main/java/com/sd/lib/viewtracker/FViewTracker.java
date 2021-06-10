@@ -16,12 +16,12 @@ public class FViewTracker implements ViewTracker {
     private WeakReference<View> mSource;
     private WeakReference<View> mTarget;
 
-    private Position mPosition = Position.TopRight;
-
+    private final int[] mLocationSourceParent = {0, 0};
     private final int[] mLocationTarget = {0, 0};
-    private final int[] mLocationParent = {0, 0};
+
     private int mX;
     private int mY;
+    private Position mPosition = Position.TopRight;
 
     private Callback mCallback;
 
@@ -95,7 +95,7 @@ public class FViewTracker implements ViewTracker {
             return false;
         }
 
-        ((View) parent).getLocationOnScreen(mLocationParent);
+        ((View) parent).getLocationOnScreen(mLocationSourceParent);
         target.getLocationOnScreen(mLocationTarget);
 
         switch (mPosition) {
@@ -148,7 +148,7 @@ public class FViewTracker implements ViewTracker {
     }
 
     private int getX_alignLeft() {
-        return mLocationTarget[0] - mLocationParent[0];
+        return mLocationTarget[0] - mLocationSourceParent[0];
     }
 
     private int getX_alignRight(View source, View target) {
@@ -160,7 +160,7 @@ public class FViewTracker implements ViewTracker {
     }
 
     private int getY_alignTop() {
-        return mLocationTarget[1] - mLocationParent[1];
+        return mLocationTarget[1] - mLocationSourceParent[1];
     }
 
     private int getY_alignBottom(View source, View target) {
