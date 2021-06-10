@@ -1,3 +1,6 @@
+# Deprecated
+这个库已经被废弃，功能转移到[view-track](https://github.com/zj565061763/view-track)
+
 # About
 让源view追踪目标view，回调源view的x和y相对于父布局需要是什么值才可以到达指定位置
 
