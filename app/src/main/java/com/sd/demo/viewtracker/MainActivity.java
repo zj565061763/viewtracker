@@ -11,6 +11,8 @@ import com.sd.demo.viewtracker.databinding.ActivityMainBinding;
 import com.sd.lib.viewtracker.ViewTracker;
 import com.sd.lib.viewtracker.ViewTracker.Position;
 import com.sd.lib.viewtracker.ext.FPositionTracker;
+import com.sd.lib.viewtracker.updater.ViewUpdater;
+import com.sd.lib.viewtracker.updater.impl.OnPreDrawUpdater;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -30,7 +32,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FPositionTracker getViewTracker() {
         if (mViewTracker == null) {
-            mViewTracker = new FPositionTracker();
+            mViewTracker = new FPositionTracker() {
+                @NonNull
+                @Override
+                protected ViewUpdater createTargetUpdater() {
+                    return new OnPreDrawUpdater();
+                }
+            };
             // 设置回调对象
             mViewTracker.setCallback(new ViewTracker.Callback() {
                 /**
