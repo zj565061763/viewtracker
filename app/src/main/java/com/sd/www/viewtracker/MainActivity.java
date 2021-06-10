@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.lib.viewtracker.FViewTracker;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  * @param target 目标view
                  */
                 @Override
-                public void onUpdate(int x, int y, View source, View target) {
+                public void onUpdate(int x, int y, @NonNull View source,@NonNull  View target) {
                     Log.i(TAG, x + "," + y);
                 }
             });
